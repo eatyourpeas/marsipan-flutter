@@ -1,6 +1,6 @@
 # MaRSiPAN
 
-![alt text](https://github.com/eatyourpeas/marsipan-flutter/blob/main/~/assets/images/marsipan_2019_alpha.png?raw=true)
+![alt text](https://github.com/eatyourpeas/marsipan-flutter/blob/main/assets/images/marsipan_2019_alpha.png?raw=true)
 
 ## Background
 Clinical assessment of malnutrition to ascribe risk is hard to do as malnutrition is often a slowly progressive and indolent state, gradually deteriorating from compensating to decompensating. Important factors, apart from BMI, seem to be rate of weight loss, as well as physiological parameters reflecting degree of compensation (particularly cardiovascular).
