@@ -212,7 +212,7 @@ class _RiskWheelState extends State<RiskWheel>
           alignment: Alignment.topCenter,
           child: Text(
             _riskText,
-            style: TextStyle(fontSize: 24),
+            style: TextStyle(fontSize: 18),
           )),
     );
   }
