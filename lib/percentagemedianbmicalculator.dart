@@ -8,37 +8,30 @@ import 'data.dart';
 
 class PercentageMedianBMICalculatorRoute extends StatelessWidget {
   final data = Data(
-    selected: false,
-    percentage: '',
-    isFemale: true,
-    weight: 0.0,
-    height: 0.0,
-    clinicDate: DateTime.now(),
-    dobDate: DateTime.now()
-  );
+      selected: false,
+      percentage: '',
+      isFemale: true,
+      weight: 0.0,
+      height: 0.0,
+      clinicDate: DateTime.now(),
+      dobDate: DateTime.now());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text('%mBMI Calculator')
-        ),
-        body: body(context)
-    );
+        appBar: AppBar(title: Text('%mBMI Calculator')), body: body(context));
   }
 
   @override
-  Widget portrait(){
-    return Column(
-        children: <Widget>[
-          BirthdayWidget(data: data),
-          ClinicWidget(data: data),
-          HeightWidget(data: data),
-          WeightWidget(data: data),
-          SexChoiceWidget(data: data),
-          CalculateWidget(data: data)
-        ]
-    );
+  Widget portrait() {
+    return Column(children: <Widget>[
+      BirthdayWidget(data: data),
+      ClinicWidget(data: data),
+      HeightWidget(data: data),
+      WeightWidget(data: data),
+      SexChoiceWidget(data: data),
+      CalculateWidget(data: data)
+    ]);
   }
 
   @override
@@ -51,7 +44,7 @@ class PercentageMedianBMICalculatorRoute extends StatelessWidget {
   }
 
   @override
-  Widget landscape(){
+  Widget landscape() {
     return Column(
       children: <Widget>[
         Row(
@@ -79,18 +72,12 @@ class PercentageMedianBMICalculatorRoute extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Flexible(
-              child: SexChoiceWidget(data: data)
-            ),
+            Flexible(child: SexChoiceWidget(data: data)),
           ],
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Flexible(
-                child:CalculateWidget(data: data)
-            )
-          ],
+          children: <Widget>[Flexible(child: CalculateWidget(data: data))],
         )
       ],
     );
@@ -104,7 +91,7 @@ class HeightWidget extends StatefulWidget {
   _HeightWidgetState createState() => _HeightWidgetState();
 }
 
-class _HeightWidgetState extends State<HeightWidget>{
+class _HeightWidgetState extends State<HeightWidget> {
   final heightTextController = TextEditingController();
   bool _validate = false;
   @override
@@ -118,62 +105,60 @@ class _HeightWidgetState extends State<HeightWidget>{
   Widget build(BuildContext context) {
     return Container(
         child: Row(
+      children: <Widget>[
+        Column(
           children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  child: Container(
-                    child: new Icon(
-                      Icons.show_chart
-                    ),
-                  ),
-                  padding: EdgeInsets.fromLTRB(30.0, 0.0, 10.0, 0.0),
-                )
-              ],
-            ),
-            Expanded(
-                  child: Container(
-                      padding: EdgeInsets.fromLTRB(10, 0, 50, 0),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      controller: heightTextController,
-                      onEditingComplete: () => { print('called ${heightTextController.text}')},
-                      onChanged: (text) => {
-                        heightTextController.text.isEmpty ? _validate = true : _validate = false,
-                        _didEnterHeight(widget.data),
-                        widget.data.height = double.tryParse(text)
-                      },
-                      keyboardType: TextInputType.numberWithOptions(decimal: true),
-                      decoration: InputDecoration(
-                        labelText: 'Height in cm',
-                        errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                      ),
-                    )
-                  )
+            Container(
+              child: Container(
+                child: new Icon(Icons.show_chart),
+              ),
+              padding: EdgeInsets.fromLTRB(30.0, 0.0, 10.0, 0.0),
             )
           ],
-        )
-    );
+        ),
+        Expanded(
+            child: Container(
+                padding: EdgeInsets.fromLTRB(10, 0, 50, 0),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                  controller: heightTextController,
+                  onEditingComplete: () =>
+                      {print('called ${heightTextController.text}')},
+                  onChanged: (text) => {
+                    heightTextController.text.isEmpty
+                        ? _validate = true
+                        : _validate = false,
+                    _didEnterHeight(widget.data),
+                    widget.data.height = double.tryParse(text)
+                  },
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    labelText: 'Height in cm',
+                    errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                  ),
+                )))
+      ],
+    ));
   }
+
   _didEnterHeight(Data data) {
 //    print(data.height);
   }
 }
 
-class WeightWidget extends StatefulWidget{
+class WeightWidget extends StatefulWidget {
   final Data data;
   WeightWidget({this.data});
   @override
   _WeightWidgetState createState() => _WeightWidgetState();
 }
 
-class _WeightWidgetState extends State<WeightWidget>{
-
+class _WeightWidgetState extends State<WeightWidget> {
   final weightTextController = TextEditingController();
   bool _validate = false;
   @override
@@ -188,52 +173,51 @@ class _WeightWidgetState extends State<WeightWidget>{
   Widget build(BuildContext context) {
     return Container(
         child: Row(
+      children: <Widget>[
+        Column(
           children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  child: Container(
-                    child: new Icon(
-                      LineAwesomeIcons.balance_scale,
-                    ),
-                  ),
-                  padding: EdgeInsets.fromLTRB(30.0, 0.0, 10.0, 0.0),
-                )
-              ],
-            ),
-            Expanded(
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(10, 0, 50, 0),
-                    child: TextFormField(
-                      controller: weightTextController,
-                      onChanged: (text) => {
-                        widget.data.weight = double.tryParse(weightTextController.text)
-                      },
-                      onEditingComplete: () => {
-                        widget.data.weight = double.tryParse(weightTextController.text)
-                      },
-                      keyboardType: TextInputType.numberWithOptions(decimal: true),
-                      decoration: InputDecoration(
-                        labelText: 'Weight in kg',
-                        errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                      ),
-                    )
-                )
+            Container(
+              child: Container(
+                child: new Icon(
+                  LineAwesomeIcons.balance_scale,
+                ),
+              ),
+              padding: EdgeInsets.fromLTRB(30.0, 0.0, 10.0, 0.0),
             )
           ],
-        )
-    );
+        ),
+        Expanded(
+            child: Container(
+                padding: EdgeInsets.fromLTRB(10, 0, 50, 0),
+                child: TextFormField(
+                  controller: weightTextController,
+                  onChanged: (text) => {
+                    widget.data.weight =
+                        double.tryParse(weightTextController.text)
+                  },
+                  onEditingComplete: () => {
+                    widget.data.weight =
+                        double.tryParse(weightTextController.text)
+                  },
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    labelText: 'Weight in kg',
+                    errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                  ),
+                )))
+      ],
+    ));
   }
 }
 
-class BirthdayWidget extends StatefulWidget{
+class BirthdayWidget extends StatefulWidget {
   final Data data;
   BirthdayWidget({this.data});
   @override
   _BirthdayWidgetState createState() => _BirthdayWidgetState();
 }
 
-class _BirthdayWidgetState extends State<BirthdayWidget>{
+class _BirthdayWidgetState extends State<BirthdayWidget> {
   var customFormat = DateFormat('E, d MMM yyyy');
   Future<Null> showPicker(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -247,63 +231,60 @@ class _BirthdayWidgetState extends State<BirthdayWidget>{
         widget.data.dobDate = picked;
       });
   }
+
   @override
   Widget build(BuildContext context) {
-        return Container(
-            child: Row(
-              children: <Widget>[
-                  Column(
-                      children: <Widget>[
-                        Container(
-                            child: Container(
-                                child: new Icon(
-                                    Icons.cake,
-                                ),
-                            ),
-                            padding: EdgeInsets.fromLTRB(30.0, 10.0, 10.0, 0.0),
-                        )
-                      ],
-                  ),
-                  Expanded(
-                      child: Container(
-                        child: Container(
-                          child: Text(
-                            '${customFormat.format(widget.data.dobDate)}',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-
-                        margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
-                      )
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        child: IconButton(
-                          color: Colors.green,
-                          onPressed: () => showPicker(context),
-                          icon: Icon(
-                              Icons.calendar_today),
-                          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        ),
-                        padding: EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 0.0),
-                      )
-                    ],
-                  )
-              ],
+    return Container(
+        child: Row(
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Container(
+              child: Container(
+                child: new Icon(
+                  Icons.cake,
+                ),
+              ),
+              padding: EdgeInsets.fromLTRB(30.0, 10.0, 10.0, 0.0),
             )
-        );
+          ],
+        ),
+        Expanded(
+            child: Container(
+          child: Container(
+            child: Text(
+              '${customFormat.format(widget.data.dobDate)}',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+        )),
+        Column(
+          children: <Widget>[
+            Container(
+              child: IconButton(
+                color: Colors.green,
+                onPressed: () => showPicker(context),
+                icon: Icon(Icons.calendar_today),
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              ),
+              padding: EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 0.0),
+            )
+          ],
+        )
+      ],
+    ));
   }
 }
 
-class ClinicWidget extends StatefulWidget{
+class ClinicWidget extends StatefulWidget {
   final Data data;
   ClinicWidget({this.data});
   @override
   _ClinicWidgetState createState() => _ClinicWidgetState();
 }
 
-class _ClinicWidgetState extends State<ClinicWidget>{
+class _ClinicWidgetState extends State<ClinicWidget> {
   var customFormat = DateFormat('E, d MMM yyyy');
   DateTime chosenDate = DateTime.now();
   var locale = 'en';
@@ -316,57 +297,56 @@ class _ClinicWidgetState extends State<ClinicWidget>{
     );
     if (picked != null && picked != widget.data.clinicDate)
       setState(() {
-          widget.data.clinicDate = picked;
+        widget.data.clinicDate = picked;
       });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Row(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                    Container(
-                        child: Container(
-                            child: new Icon(
-                                Icons.today,
-                            ),
-                        ),
-                        padding: EdgeInsets.fromLTRB(30.0, 10.0, 10.0, 0.0),
-                    )
-                ],
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Container(
+              child: Container(
+                child: new Icon(
+                  Icons.today,
+                ),
               ),
-            Expanded(
-                child: Container(
-                  child: Container(
-                    child: Text(
-                      '${customFormat.format(widget.data.clinicDate)}',
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
-                )
+              padding: EdgeInsets.fromLTRB(30.0, 10.0, 10.0, 0.0),
+            )
+          ],
+        ),
+        Expanded(
+            child: Container(
+          child: Container(
+            child: Text(
+              '${customFormat.format(widget.data.clinicDate)}',
+              textAlign: TextAlign.center,
             ),
-            Column(
-              children: <Widget>[
-                Container(
-                  child: IconButton(
-                    color: Colors.green,
-                    onPressed: () => showPicker(context),
-                    icon: Icon(Icons.calendar_today),
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  ),
-                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 0.0),
-                )
-              ],
+          ),
+          margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+        )),
+        Column(
+          children: <Widget>[
+            Container(
+              child: IconButton(
+                color: Colors.green,
+                onPressed: () => showPicker(context),
+                icon: Icon(Icons.calendar_today),
+                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              ),
+              padding: EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 0.0),
             )
           ],
         )
-    );
+      ],
+    ));
   }
 }
 
-class SexChoiceWidget extends StatefulWidget{
+class SexChoiceWidget extends StatefulWidget {
   final Data data;
   SexChoiceWidget({this.data});
   @override
@@ -396,16 +376,12 @@ class _SexChoiceWidgetState extends State<SexChoiceWidget> {
             Expanded(
               child: Container(
                   child: Switch(
-                    inactiveThumbColor: Colors.blue,
-                    inactiveTrackColor: Colors.lightBlue,
-                    activeColor: Colors.pink,
-                    onChanged: (val) =>
-                        setState(
-                                () => widget.data.isFemale = val
-                        ),
-                    value: widget.data.isFemale,
-                  )
-              ),
+                inactiveThumbColor: Colors.blue,
+                inactiveTrackColor: Colors.lightBlue,
+                activeColor: Colors.pink,
+                onChanged: (val) => setState(() => widget.data.isFemale = val),
+                value: widget.data.isFemale,
+              )),
             ),
             Column(
               children: <Widget>[
@@ -416,8 +392,7 @@ class _SexChoiceWidgetState extends State<SexChoiceWidget> {
               ],
             ),
           ],
-        )
-    );
+        ));
   }
 }
 
@@ -432,59 +407,69 @@ class _CalculateWidgetState extends State<CalculateWidget> {
   String summaryResult = '';
   String heightResult = '';
   String weightResult = '';
-  String BMIResult = '';
   String pctBMIResult = '';
   String ageResult = '';
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-
-          RaisedButton(
-            color: Colors.green,
-            textColor: Colors.white,
-            onPressed: () => {
-              setState(() => {
-                _didPressCalculateButton(widget.data),
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CalculatorResultsRoute(widget.data))
-                )
-              })
-            },
-            child: Text(
-              "Calculate %mBMI",
-              textAlign: TextAlign.center,
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(primary: Colors.green),
+          onPressed: () => {
+            setState(() => {
+                  _didPressCalculateButton(widget.data),
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CalculatorResultsRoute(widget.data)))
+                })
+          },
+          child: Text(
+            "Calculate %mBMI",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
             ),
           ),
-        ],
-      )
-    );
+        ),
+      ],
+    ));
   }
 
   _didPressCalculateButton(Data data) {
-    var customFormat = DateFormat('E, d MMM yyyy');
-    var dobString = customFormat.format(data.dobDate);
-    var clinicString = customFormat.format(data.clinicDate);
     double weight = data.weight;
     double height = data.height;
     var growthMethods = new GrowthMethods();
-    widget.data.decimal_age = growthMethods.decimalAgeFromDates(data.dobDate, data.clinicDate);
+    widget.data.decimalAge =
+        growthMethods.decimalAgeFromDates(data.dobDate, data.clinicDate);
     widget.data.bmi = growthMethods.bmiFromHeightandWeight(height, weight);
-    widget.data.pct_mbmi = growthMethods.percentageMedianBMI(widget.data.bmi, widget.data.decimal_age, !data.isFemale);
-    widget.data.bmi_sds = growthMethods.SDS("BMI", widget.data.decimal_age, widget.data.bmi, !data.isFemale);
-    widget.data.bmi_centile = growthMethods.convertZScoreToCentile(widget.data.bmi_sds);
-    widget.data.height_sds = growthMethods.SDS("height", widget.data.decimal_age, height, !data.isFemale);
-    widget.data.height_centile = growthMethods.convertZScoreToCentile(widget.data.height_sds);
-    widget.data.weight_sds = growthMethods.SDS("weight", widget.data.decimal_age, weight, !data.isFemale);
-    widget.data.weight_centile = growthMethods.convertZScoreToCentile(widget.data.weight_sds);
-    double median_bmi = growthMethods.medianBMI(widget.data.bmi, widget.data.isFemale, widget.data.decimal_age);
-    widget.data.hundred_pct_weight = growthMethods.weightForBMI(widget.data.height, median_bmi);
-    widget.data.ninety_five_pct_weight = growthMethods.weightForBMI(widget.data.height, median_bmi * 0.95);
-    widget.data.ninety_pct_weight = growthMethods.weightForBMI(widget.data.height, median_bmi * 0.9);
-    widget.data.eighty_five_pct_weight = growthMethods.weightForBMI(widget.data.height, median_bmi * 0.85);
+    widget.data.pctMBMI = growthMethods.percentageMedianBMI(
+        widget.data.bmi, widget.data.decimalAge, !data.isFemale);
+    widget.data.bmiSDS = growthMethods.sds(
+        "BMI", widget.data.decimalAge, widget.data.bmi, !data.isFemale);
+    widget.data.bmiCentile =
+        growthMethods.convertZScoreToCentile(widget.data.bmiSDS);
+    widget.data.heightSDS = growthMethods.sds(
+        "height", widget.data.decimalAge, height, !data.isFemale);
+    widget.data.heightCentile =
+        growthMethods.convertZScoreToCentile(widget.data.heightSDS);
+    widget.data.weightSDS = growthMethods.sds(
+        "weight", widget.data.decimalAge, weight, !data.isFemale);
+    widget.data.weightCentile =
+        growthMethods.convertZScoreToCentile(widget.data.weightSDS);
+    double medianbmi = growthMethods.medianBMI(
+        widget.data.bmi, widget.data.isFemale, widget.data.decimalAge);
+    widget.data.hundredPCTWeight =
+        growthMethods.weightForBMI(widget.data.height, medianbmi);
+    widget.data.ninetyFivePCTWeight =
+        growthMethods.weightForBMI(widget.data.height, medianbmi * 0.95);
+    widget.data.ninetyPCTWeight =
+        growthMethods.weightForBMI(widget.data.height, medianbmi * 0.9);
+    widget.data.eightyFivePCTWeight =
+        growthMethods.weightForBMI(widget.data.height, medianbmi * 0.85);
   }
 }

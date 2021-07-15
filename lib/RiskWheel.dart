@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:marsipan/riskdetail.dart';
 import 'package:marsipan/risks.dart';
 import 'package:flutter/material.dart';
 
@@ -6,11 +7,12 @@ import 'board_view.dart';
 import 'model.dart';
 
 class RiskWheel extends StatefulWidget {
-
-  bool selected = false;
-  int marsipanCategoryIndex;
-  RiskCategory riskCategory;
-  RiskWheel(this.riskCategory, this.marsipanCategoryIndex);
+  final bool selected = false;
+  final int marsipanCategoryIndex;
+  final RiskCategory riskCategory;
+  final IntCallback onUpdateRiskDetail;
+  RiskWheel(
+      {this.riskCategory, this.marsipanCategoryIndex, this.onUpdateRiskDetail});
   @override
   State<StatefulWidget> createState() {
     return _RiskWheelState();
@@ -19,62 +21,57 @@ class RiskWheel extends StatefulWidget {
 
 class _RiskWheelState extends State<RiskWheel>
     with SingleTickerProviderStateMixin {
-
   Size get size => Size(MediaQuery.of(context).size.width * 0.5,
       MediaQuery.of(context).size.width * 0.5);
 
   double _angle = 0.0;
   double _current = 0;
-  String _risk_value = '';
-  // double _value = 0.0;
+  String riskValue = '';
   double red = 0;
   double amber = 0.125;
   double green = 0.25;
   double blue = 0.375;
 
-
   Risk risk;
-  bool pressedGo = false;
+  bool pressedSelect = false;
 
-  List<Luck> _items = [
-    Luck(Colors.red, 'Red'),
-    Luck(Colors.amber, 'Amber'),
-    Luck(Colors.green, 'Green'),
-    Luck(Colors.blue, 'Blue'),
+  List<RiskColour> _items = [
+    RiskColour(Colors.red, 'Red'),
+    RiskColour(Colors.amber, 'Amber'),
+    RiskColour(Colors.green, 'Green'),
+    RiskColour(Colors.blue, 'Blue'),
   ];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
-    if(scoredCategories[widget.marsipanCategoryIndex].colour == "Red"){
+    if (scoredCategories[widget.marsipanCategoryIndex].colour == "Red") {
       _angle = red;
       risk = widget.riskCategory.red;
-      pressedGo = true;
+      pressedSelect = true;
     }
-    if(scoredCategories[widget.marsipanCategoryIndex].colour == "Amber"){
+    if (scoredCategories[widget.marsipanCategoryIndex].colour == "Amber") {
       risk = widget.riskCategory.amber;
       _angle = amber;
-      pressedGo = true;
+      pressedSelect = true;
     }
-    if(scoredCategories[widget.marsipanCategoryIndex].colour == "Green"){
+    if (scoredCategories[widget.marsipanCategoryIndex].colour == "Green") {
       risk = widget.riskCategory.green;
       _angle = green;
-      pressedGo = true;
+      pressedSelect = true;
     }
-    if(scoredCategories[widget.marsipanCategoryIndex].colour == "Blue"){
+    if (scoredCategories[widget.marsipanCategoryIndex].colour == "Blue") {
       risk = widget.riskCategory.blue;
       _angle = blue;
-      pressedGo = true;
+      pressedSelect = true;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor: pressedGo ? risk.selectedColour : Colors.white,
+        backgroundColor: pressedSelect ? risk.selectedPaleColour : Colors.white,
         appBar: AppBar(
           centerTitle: true,
           title: Container(
@@ -87,33 +84,26 @@ class _RiskWheelState extends State<RiskWheel>
           ),
         ),
         body: Center(
-            child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 100.0, 0, 16.0),
-                    child: Stack(
-                          alignment: Alignment.center,
-                          children: <Widget>[
-                            Container(
-                              child: GestureDetector(
-                                onPanUpdate: (details) => updatePan(details),
-                                child: BoardView(items: _items, current: _current, angle: _angle),
-                              ),
-                            ),
-                            pressedGo ? _boxShadow() : new Container(),
-                            _buildGo(),
-                          ]
-                      ),
-                  ),
-                  _buildRiskText(_angle)
-                ]
-            )
-        )
-    );
+            child: Column(children: <Widget>[
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 100.0, 0, 16.0),
+            child: Stack(alignment: Alignment.center, children: <Widget>[
+              Container(
+                child: GestureDetector(
+                  onPanUpdate: (details) => updatePan(details),
+                  child: BoardView(
+                      items: _items, current: _current, angle: _angle),
+                ),
+              ),
+              pressedSelect ? _boxShadow() : new Container(),
+              _buildGo(widget),
+            ]),
+          ),
+          _buildRiskText(_angle)
+        ])));
   }
 
-  _boxShadow(){
-
+  _boxShadow() {
     return Container(
       height: size.height,
       width: size.width,
@@ -123,92 +113,107 @@ class _RiskWheelState extends State<RiskWheel>
     );
   }
 
-  updatePan (details) {
-    if (!pressedGo) {
+  updatePan(details) {
+    if (!pressedSelect) {
       return setState(
-            () {
+        () {
           _panHandler(details);
         },
       );
     }
   }
 
-  _buildGo() {
+  _buildGo(RiskWheel w) {
     return Material(
-      color: pressedGo ? Colors.grey : Colors.white,
+      color: pressedSelect ? Colors.grey : Colors.white,
       shape: CircleBorder(),
       child: InkWell(
-        customBorder: CircleBorder(),
-        child: Container(
-          alignment: Alignment.center,
-          height: 72,
-          width: 72,
-          child: Text(
-            pressedGo ? "UNSET" : "SET",
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: pressedGo ? Colors.red : Colors.black),
+          customBorder: CircleBorder(),
+          child: Container(
+            alignment: Alignment.center,
+            height: 72,
+            width: 72,
+            child: Text(
+              pressedSelect ? "UNSET" : "SET",
+              style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: pressedSelect ? Colors.red : Colors.black),
+            ),
           ),
-        ),
-        onTap: () => setState( () => {
-          pressedGo = !pressedGo,
-              if (pressedGo) {
-                  if (_risk_value == 'Red'){
-                    risk = widget.riskCategory.red,
+          onTap: () => setState(() => {
+                pressedSelect = !pressedSelect,
+                if (pressedSelect)
+                  {
+                    if (riskValue == 'Red')
+                      {
+                        risk = widget.riskCategory.red,
+                      },
+                    if (riskValue == 'Amber')
+                      {
+                        risk = widget.riskCategory.amber,
+                      },
+                    if (riskValue == 'Green')
+                      {
+                        risk = widget.riskCategory.green,
+                      },
+                    if (riskValue == 'Blue')
+                      {
+                        risk = widget.riskCategory.blue,
+                      },
+                    scoredCategories[widget.marsipanCategoryIndex] = risk,
+                  }
+                else
+                  {
+                    scoredCategories[widget.marsipanCategoryIndex] =
+                        marsipanCategories[widget.marsipanCategoryIndex]
+                            .unscored
                   },
-                  if (_risk_value == 'Amber'){
-                    risk = widget.riskCategory.amber,
-
-                  },
-                  if (_risk_value == 'Green'){
-                    risk = widget.riskCategory.green,
-                  },
-                  if (_risk_value == 'Blue'){
-                    risk = widget.riskCategory.blue,
-                  },
-                  scoredCategories[widget.marsipanCategoryIndex] = risk
-            } else {
-              scoredCategories[widget.marsipanCategoryIndex] = marsipanCategories[widget.marsipanCategoryIndex].unscored
-            }
-        })
-      ),
+                w.onUpdateRiskDetail(widget.marsipanCategoryIndex)
+              })),
     );
   }
 
   _buildRiskText(angle) {
+    if (angle >= 0.5 || angle <= -0.5) {
+      _angle = 0.0;
+    }
+    riskValue = 'Red';
+    if ((_angle > 0.0625 && _angle < 0.1875) ||
+        (_angle < -0.3125 && _angle >= -0.4375)) {
+      riskValue = 'Amber';
+    }
+    if ((_angle >= 0.1875 && _angle <= 0.3125) ||
+        (_angle <= -0.1875 && _angle >= -0.3125)) {
+      riskValue = 'Green';
+    }
+    if ((_angle > 0.3125 && _angle <= 0.4375) ||
+        (_angle < -0.0625 && _angle > -0.1875)) {
+      riskValue = 'Blue';
+    }
 
-      if ( angle >= 0.5 || angle <= -0.5) {
-        _angle = 0.0;
-      };
-      _risk_value = 'Red';
-      if ((_angle > 0.0625 && _angle < 0.1875) || (_angle < -0.3125 && _angle >= -0.4375)) {
-        _risk_value = 'Amber';
-      }
-      if((_angle >= 0.1875 && _angle <= 0.3125) || (_angle <= -0.1875 && _angle >= -0.3125)) {
-        _risk_value = 'Green';
-      }
-      if ((_angle > 0.3125 && _angle <= 0.4375) || (_angle < -0.0625 && _angle > -0.1875)) {
-        _risk_value = 'Blue';
-      }
-
-      RiskCategory category = marsipanCategories[widget.marsipanCategoryIndex];
-      var _riskText = '';
-      if (_risk_value == 'Red'){
-        _riskText = category.red.description;
-      }
-      if (_risk_value == 'Amber'){
-        _riskText = category.amber.description;
-      }
-      if (_risk_value == 'Green'){
-        _riskText = category.green.description;
-      }
-      if (_risk_value == 'Blue'){
-        _riskText = category.blue.description;
-      }
+    RiskCategory category = marsipanCategories[widget.marsipanCategoryIndex];
+    var _riskText = '';
+    if (riskValue == 'Red') {
+      _riskText = category.red.description;
+    }
+    if (riskValue == 'Amber') {
+      _riskText = category.amber.description;
+    }
+    if (riskValue == 'Green') {
+      _riskText = category.green.description;
+    }
+    if (riskValue == 'Blue') {
+      _riskText = category.blue.description;
+    }
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Align(
           alignment: Alignment.topCenter,
-          child: Text(_riskText)
-      ),
+          child: Text(
+            _riskText,
+            style: TextStyle(fontSize: 24),
+          )),
     );
   }
 
@@ -217,7 +222,6 @@ class _RiskWheelState extends State<RiskWheel>
     return (((_base + value) % 1) * _items.length).floor();
   }
 
-
 //  _buildResult(angle) {
 //
 //    //var current = getColorText(angle);
@@ -225,16 +229,15 @@ class _RiskWheelState extends State<RiskWheel>
 //      padding: EdgeInsets.symmetric(vertical: 16.0),
 //      child: Align(
 //        alignment: Alignment.topCenter,
-//        child: Text('$_risk_value')
+//        child: Text('$riskValue')
 //      ),
 //    );
 //  }
 
   void _panHandler(DragUpdateDetails d) {
-
     /// Pan location on the wheel
-    bool onTop = d.localPosition.dy <= size.width/2;
-    bool onLeftSide = d.localPosition.dx <= size.width/2;
+    bool onTop = d.localPosition.dy <= size.width / 2;
+    bool onLeftSide = d.localPosition.dx <= size.width / 2;
     bool onRightSide = !onLeftSide;
     bool onBottom = !onTop;
 
@@ -253,9 +256,8 @@ class _RiskWheelState extends State<RiskWheel>
         ? yChange
         : yChange * -1;
 
-    double horizontalRotation = (onTop && panRight) || (onBottom && panLeft)
-        ? xChange
-        : xChange * -1;
+    double horizontalRotation =
+        (onTop && panRight) || (onBottom && panLeft) ? xChange : xChange * -1;
 
     // Total computed change
     double rotationalChange = verticalRotation + horizontalRotation;
@@ -263,8 +265,7 @@ class _RiskWheelState extends State<RiskWheel>
     bool movingClockwise = rotationalChange > 0;
 //    bool movingCounterClockwise = rotationalChange < 0;
 
-
-    if (movingClockwise){
+    if (movingClockwise) {
       // int dir = d.delta.direction < pi / 2 ? 1 : -1;
       _angle += -(d.delta.distance * pi / 180);
     } else {
@@ -272,5 +273,4 @@ class _RiskWheelState extends State<RiskWheel>
       _angle += d.delta.distance * pi / 180;
     }
   }
-
 }

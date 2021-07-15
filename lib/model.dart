@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-class Luck{
+class RiskColour {
   final Color color;
-  final String color_name;
-  Luck(this.color, this.color_name);
+  final String colorName;
+  RiskColour(this.color, this.colorName);
 }

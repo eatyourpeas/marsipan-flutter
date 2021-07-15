@@ -9,7 +9,7 @@ import 'model.dart';
 class BoardView extends StatefulWidget {
   final double angle;
   final double current;
-  final List<Luck> items;
+  final List<RiskColour> items;
 
   const BoardView({Key key, this.angle, this.current, this.items})
       : super(key: key);
@@ -21,7 +21,6 @@ class BoardView extends StatefulWidget {
 }
 
 class _BoardViewState extends State<BoardView> {
-
   Size get size => Size(MediaQuery.of(context).size.width * 0.5,
       MediaQuery.of(context).size.width * 0.5);
 
@@ -57,15 +56,15 @@ class _BoardViewState extends State<BoardView> {
     );
   }
 
-  _buildCard(Luck luck) {
-    var _rotate = _rotote(widget.items.indexOf(luck));
+  _buildCard(RiskColour riskColour) {
+    var _rotate = _rotote(widget.items.indexOf(riskColour));
     var _angle = 0.5 * pi;
     return Transform.rotate(
       angle: _rotate,
       child: ClipPath(
         clipper: _LuckPath(_angle),
         child: Container(
-          color: luck.color,
+          color: riskColour.color,
           height: size.height,
           width: size.width,
         ),

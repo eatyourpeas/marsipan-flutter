@@ -112,4 +112,3 @@ MaterialColor marsipanPinkColor = MaterialColor(0xFFFCE4EC, kMaRSiPANPink);
 MaterialColor marsipanDarkPink = MaterialColor(0xFFc9b2ba, kMaRSiPANDarkPink);
 MaterialColor marsipanLightGrey = MaterialColor(0xFFFAFAFA, kMaRSiPANLightGrey);
 MaterialColor marsipanDarkGrey = MaterialColor(0xFFC7C7C7, kMaRSiPANDarkGrey);
-

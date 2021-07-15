@@ -3,22 +3,61 @@ class Data {
   String percentage = '';
   bool isFemale = false;
   double weight = 0.0;
-  double weight_sds = 0.0;
-  String weight_centile = '';
+  double weightSDS = 0.0;
+  String weightCentile = '';
   double height = 0.0;
-  double height_sds = 0.0;
-  String height_centile = '';
+  double heightSDS = 0.0;
+  String heightCentile = '';
   double bmi = 0.0;
-  double bmi_sds = 0.0;
-  String bmi_centile = '';
-  double pct_mbmi = 0.0;
-  double eighty_five_pct_weight = 0.0;
-  double ninety_pct_weight = 0.0;
-  double ninety_five_pct_weight = 0.0;
-  double hundred_pct_weight = 0.0;
+  double bmiSDS = 0.0;
+  String bmiCentile = '';
+  double pctMBMI = 0.0;
+  double eightyFivePCTWeight = 0.0;
+  double ninetyPCTWeight = 0.0;
+  double ninetyFivePCTWeight = 0.0;
+  double hundredPCTWeight = 0.0;
   DateTime clinicDate = DateTime.now();
   DateTime dobDate = DateTime.now();
-  double decimal_age = 0.0;
-  String chronological_age = "";
-  Data({this.selected, this.percentage, this.isFemale, this.height, this.weight, this.eighty_five_pct_weight, this.ninety_pct_weight, this.ninety_five_pct_weight, this.clinicDate, this.dobDate});
+  double decimalAge = 0.0;
+  String chronologicalAge = "";
+  Data(
+      {this.selected,
+      this.percentage,
+      this.isFemale,
+      this.height,
+      this.weight,
+      this.eightyFivePCTWeight,
+      this.ninetyPCTWeight,
+      this.ninetyFivePCTWeight,
+      this.clinicDate,
+      this.dobDate});
+}
+
+class AdultBMIData {
+  bool validated = false;
+  double weight = 0.0;
+  double height = 0.0;
+  String result = '';
+  double bmi = 0.0;
+  bool isImperial = true;
+  bool isWeight = false;
+  String weightString = "stone.pounds";
+  String heightString = "feet.inches";
+  String weightUnits = "stone";
+  String heightUnits = "feet";
+  double eighteenPointFive = 0.0;
+
+  AdultBMIData(
+      {this.validated,
+      this.weight,
+      this.height,
+      this.result,
+      this.bmi,
+      this.isImperial,
+      this.eighteenPointFive,
+      this.isWeight,
+      this.heightString,
+      this.heightUnits,
+      this.weightString,
+      this.weightUnits});
 }
