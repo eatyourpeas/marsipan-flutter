@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'colours.dart';
 import 'package:flutter/material.dart';
 import 'package:marsipan/risklist.dart';
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'MaRSiPAN',
+        title: 'MEED',
         theme: ThemeData(
             primarySwatch: marsipanDarkGrey,
             backgroundColor: marsipanLightGrey.shade600,
@@ -28,21 +30,40 @@ class MyHomePage extends StatelessWidget {
           title: new RichText(
               text: new TextSpan(children: <TextSpan>[
         new TextSpan(
-            text: 'Ma', style: TextStyle(color: Colors.red, fontSize: 24)),
+            text: 'M', style: TextStyle(color: Colors.red, fontSize: 24)),
         new TextSpan(
-            text: 'R', style: TextStyle(color: Colors.amber, fontSize: 24)),
+            text: 'E', style: TextStyle(color: Colors.amber, fontSize: 24)),
         new TextSpan(
-            text: 'SiP', style: TextStyle(color: Colors.green, fontSize: 24)),
+            text: 'E', style: TextStyle(color: Colors.green, fontSize: 24)),
         new TextSpan(
-            text: 'AN', style: TextStyle(color: Colors.blue, fontSize: 24)),
+            text: 'D', style: TextStyle(color: Colors.blue, fontSize: 24)),
       ]))),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-                margin: EdgeInsets.all(10.0),
-                child: Image.asset('assets/images/marsipan_2019_alpha.png')),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                new RichText(
+                    text: new TextSpan(children: <TextSpan>[
+                  new TextSpan(
+                      text: 'M',
+                      style: TextStyle(color: Colors.red, fontSize: 72)),
+                  new TextSpan(
+                      text: 'E',
+                      style: TextStyle(color: Colors.amber, fontSize: 72)),
+                  new TextSpan(
+                      text: 'E',
+                      style: TextStyle(color: Colors.green, fontSize: 72)),
+                  new TextSpan(
+                      text: 'D',
+                      style: TextStyle(color: Colors.blue, fontSize: 72)),
+                ])),
+                Text('Managing Emergencies in Eating Disorders')
+              ],
+            ),
             ElevatedButton(
               child: Text(
                 'Risk Assessment Tool',
