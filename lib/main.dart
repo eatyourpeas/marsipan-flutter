@@ -1,8 +1,9 @@
+import 'package:meed/percentagemedianbmicalculator.dart';
+import 'package:meed/risklist.dart';
+
+import 'adultbmicalculator.dart';
 import 'colours.dart';
 import 'package:flutter/material.dart';
-import 'package:marsipan/risklist.dart';
-import 'package:marsipan/percentagemedianbmicalculator.dart';
-import 'package:marsipan/adultbmicalculator.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,8 +32,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: Text('Management of Emergencies in Eating Disorders')),
+      appBar: AppBar(title: Text('MEED')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -122,6 +122,26 @@ class MyHomePage extends StatelessWidget {
                 Navigator.pushNamed(context, RiskAssessmentRoute.routeName,
                     arguments: RiskAssessmentToolArguments(false));
               },
+            ),
+            Image.asset(
+              'assets/images/rcpsych-logo-homepage-2022.jpg',
+              scale: 4.0,
+            ),
+            Expanded(
+              child: Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/rcpch-logo.jpg',
+                      scale: 4.0,
+                    ),
+                    Text('In³8r 2022')
+                  ],
+                ),
+              ),
             ),
           ],
         ),

@@ -6268,26 +6268,26 @@ class GrowthMethods {
     return decimalAgeToReturn;
   }
 
-  String chronologicalAgeFromDates(DateTime dateOfBirth, DateTime clinicDate) {
-    String chronologicalAgeToReturn;
+  // String chronologicalAgeFromDates(DateTime dateOfBirth, DateTime clinicDate) {
+  //   String chronologicalAgeToReturn;
 
-    //    //check the dates are in order
-    //
-    //    if(dateOfBirth.isAfter(clinicDate){
-    //      //the date of birth is after the clinic date
-    //      return "";
-    //    }
-    //
-    //    var daysDifference  = clinicDate.difference(dateOfBirth).inDays;
-    //    var years = (daysDifference / 365.25).floor();
-    //    var remainderDays = ((daysDifference / 365.25) - years) * 365.25;
-    //
-    //
-    //
-    //    chronologicalAgeToReturn = pf.print(myPeriod);
+  //   //    //check the dates are in order
+  //   //
+  //   //    if(dateOfBirth.isAfter(clinicDate){
+  //   //      //the date of birth is after the clinic date
+  //   //      return "";
+  //   //    }
+  //   //
+  //   //    var daysDifference  = clinicDate.difference(dateOfBirth).inDays;
+  //   //    var years = (daysDifference / 365.25).floor();
+  //   //    var remainderDays = ((daysDifference / 365.25) - years) * 365.25;
+  //   //
+  //   //
+  //   //
+  //   //    chronologicalAgeToReturn = pf.print(myPeriod);
 
-    return chronologicalAgeToReturn;
-  }
+  //   return chronologicalAgeToReturn;
+  // }
 
   double bmiFromHeightandWeight(double height, double weight) {
     double bmi = weight / pow(height / 100, 2);

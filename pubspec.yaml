@@ -1,5 +1,5 @@
-name: marsipan
-description: The official MaRSiPAN Risk Assessment Tool and %MedianBMI Calculator.
+name: meed
+description: The official MEED (Management of Emergencies in Eating Disorders) Risk Assessment Tool and %MedianBMI Calculator.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -14,10 +14,10 @@ description: The official MaRSiPAN Risk Assessment Tool and %MedianBMI Calculato
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.17.0 <=3.3.8"
 
 dependencies:
-  intl: ^0.16.0
+  intl: ^0.17.0
   timeago: ^2.0.24
   font_awesome_flutter: ^10.2.1
   flutter:
@@ -112,7 +112,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/
+    - assets/images/rcpch-logo.jpg
+    - assets/images/rcpsych-logo-homepage-2022.jpg
     - assets/fonts/
   # To add assets to your application, add an assets section, like this:
   # assets:

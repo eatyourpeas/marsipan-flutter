@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:marsipan/RiskWheel.dart';
-import 'package:marsipan/risks.dart';
+import 'package:meed/RiskWheel.dart';
+import 'package:meed/risks.dart';
 
 class RiskAssessmentToolArguments {
   final bool isOver18y;

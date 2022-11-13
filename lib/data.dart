@@ -2,35 +2,35 @@ class Data {
   bool selected = false;
   String percentage = '';
   bool isFemale = false;
-  double weight = 0.0;
-  double weightSDS = 0.0;
-  String weightCentile = '';
-  double height = 0.0;
-  double heightSDS = 0.0;
-  String heightCentile = '';
-  double bmi = 0.0;
-  double bmiSDS = 0.0;
-  String bmiCentile = '';
-  double pctMBMI = 0.0;
-  double eightyFivePCTWeight = 0.0;
-  double ninetyPCTWeight = 0.0;
-  double ninetyFivePCTWeight = 0.0;
-  double hundredPCTWeight = 0.0;
+  double? weight = 0.0;
+  double? weightSDS = 0.0;
+  String? weightCentile = '';
+  double? height = 0.0;
+  double? heightSDS = 0.0;
+  String? heightCentile = '';
+  double? bmi = 0.0;
+  double? bmiSDS = 0.0;
+  String? bmiCentile = '';
+  double? pctMBMI = 0.0;
+  double? eightyFivePCTWeight = 0.0;
+  double? ninetyPCTWeight = 0.0;
+  double? ninetyFivePCTWeight = 0.0;
+  double? hundredPCTWeight = 0.0;
   DateTime clinicDate = DateTime.now();
   DateTime dobDate = DateTime.now();
-  double decimalAge = 0.0;
-  String chronologicalAge = "";
+  double? decimalAge = 0.0;
+  String? chronologicalAge = "";
   Data(
-      {this.selected,
-      this.percentage,
-      this.isFemale,
-      this.height,
-      this.weight,
-      this.eightyFivePCTWeight,
-      this.ninetyPCTWeight,
-      this.ninetyFivePCTWeight,
-      this.clinicDate,
-      this.dobDate});
+      {required this.selected,
+      required this.percentage,
+      required this.isFemale,
+      required this.height,
+      required this.weight,
+      required this.eightyFivePCTWeight,
+      required this.ninetyPCTWeight,
+      required this.ninetyFivePCTWeight,
+      required this.clinicDate,
+      required this.dobDate});
 }
 
 class AdultBMIData {
@@ -48,16 +48,16 @@ class AdultBMIData {
   double eighteenPointFive = 0.0;
 
   AdultBMIData(
-      {this.validated,
-      this.weight,
-      this.height,
-      this.result,
-      this.bmi,
-      this.isImperial,
-      this.eighteenPointFive,
-      this.isWeight,
-      this.heightString,
-      this.heightUnits,
-      this.weightString,
-      this.weightUnits});
+      {required this.validated,
+      required this.weight,
+      required this.height,
+      required this.result,
+      required this.bmi,
+      required this.isImperial,
+      required this.eighteenPointFive,
+      required this.isWeight,
+      required this.heightString,
+      required this.heightUnits,
+      required this.weightString,
+      required this.weightUnits});
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'calculatorresults.dart';
 import 'growthmethods.dart';
-import 'package:marsipan/calculatorresults.dart';
 import 'data.dart';
 
 class PercentageMedianBMICalculatorRoute extends StatelessWidget {
@@ -12,6 +12,9 @@ class PercentageMedianBMICalculatorRoute extends StatelessWidget {
       isFemale: true,
       weight: 0.0,
       height: 0.0,
+      eightyFivePCTWeight: 0,
+      ninetyPCTWeight: 0,
+      ninetyFivePCTWeight: 0,
       clinicDate: DateTime.now(),
       dobDate: DateTime.now());
 
@@ -85,7 +88,7 @@ class PercentageMedianBMICalculatorRoute extends StatelessWidget {
 
 class HeightWidget extends StatefulWidget {
   final Data data;
-  HeightWidget({this.data});
+  HeightWidget({required this.data});
   @override
   _HeightWidgetState createState() => _HeightWidgetState();
 }
@@ -120,7 +123,7 @@ class _HeightWidgetState extends State<HeightWidget> {
                 padding: EdgeInsets.fromLTRB(10, 0, 50, 0),
                 child: TextFormField(
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please enter some text';
                     }
                     return null;
@@ -133,7 +136,7 @@ class _HeightWidgetState extends State<HeightWidget> {
                         ? _validate = true
                         : _validate = false,
                     _didEnterHeight(widget.data),
-                    widget.data.height = double.tryParse(text)
+                    widget.data.height = double.tryParse(text)!
                   },
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
@@ -152,7 +155,7 @@ class _HeightWidgetState extends State<HeightWidget> {
 
 class WeightWidget extends StatefulWidget {
   final Data data;
-  WeightWidget({this.data});
+  WeightWidget({required this.data});
   @override
   _WeightWidgetState createState() => _WeightWidgetState();
 }
@@ -192,11 +195,11 @@ class _WeightWidgetState extends State<WeightWidget> {
                   controller: weightTextController,
                   onChanged: (text) => {
                     widget.data.weight =
-                        double.tryParse(weightTextController.text)
+                        double.tryParse(weightTextController.text)!
                   },
                   onEditingComplete: () => {
                     widget.data.weight =
-                        double.tryParse(weightTextController.text)
+                        double.tryParse(weightTextController.text)!
                   },
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
@@ -211,7 +214,7 @@ class _WeightWidgetState extends State<WeightWidget> {
 
 class BirthdayWidget extends StatefulWidget {
   final Data data;
-  BirthdayWidget({this.data});
+  BirthdayWidget({required this.data});
   @override
   _BirthdayWidgetState createState() => _BirthdayWidgetState();
 }
@@ -219,7 +222,7 @@ class BirthdayWidget extends StatefulWidget {
 class _BirthdayWidgetState extends State<BirthdayWidget> {
   var customFormat = DateFormat('E, d MMM yyyy');
   Future<Null> showPicker(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now().subtract(new Duration(days: (365 * 18))),
@@ -278,7 +281,7 @@ class _BirthdayWidgetState extends State<BirthdayWidget> {
 
 class ClinicWidget extends StatefulWidget {
   final Data data;
-  ClinicWidget({this.data});
+  ClinicWidget({required this.data});
   @override
   _ClinicWidgetState createState() => _ClinicWidgetState();
 }
@@ -288,7 +291,7 @@ class _ClinicWidgetState extends State<ClinicWidget> {
   DateTime chosenDate = DateTime.now();
   var locale = 'en';
   Future<Null> showPicker(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now().subtract(new Duration(days: (365 * 18))),
@@ -347,7 +350,7 @@ class _ClinicWidgetState extends State<ClinicWidget> {
 
 class SexChoiceWidget extends StatefulWidget {
   final Data data;
-  SexChoiceWidget({this.data});
+  SexChoiceWidget({required this.data});
   @override
   _SexChoiceWidgetState createState() => _SexChoiceWidgetState();
 }
@@ -397,7 +400,7 @@ class _SexChoiceWidgetState extends State<SexChoiceWidget> {
 
 class CalculateWidget extends StatefulWidget {
   final Data data;
-  CalculateWidget({this.data});
+  CalculateWidget({required this.data});
   @override
   _CalculateWidgetState createState() => _CalculateWidgetState();
 }
@@ -440,35 +443,35 @@ class _CalculateWidgetState extends State<CalculateWidget> {
   }
 
   _didPressCalculateButton(Data data) {
-    double weight = data.weight;
-    double height = data.height;
+    double weight = data.weight!;
+    double height = data.height!;
     var growthMethods = new GrowthMethods();
     widget.data.decimalAge =
         growthMethods.decimalAgeFromDates(data.dobDate, data.clinicDate);
     widget.data.bmi = growthMethods.bmiFromHeightandWeight(height, weight);
     widget.data.pctMBMI = growthMethods.percentageMedianBMI(
-        widget.data.bmi, widget.data.decimalAge, !data.isFemale);
+        widget.data.bmi!, widget.data.decimalAge!, !data.isFemale);
     widget.data.bmiSDS = growthMethods.sds(
-        "BMI", widget.data.decimalAge, widget.data.bmi, !data.isFemale);
+        "BMI", widget.data.decimalAge!, widget.data.bmi!, !data.isFemale);
     widget.data.bmiCentile =
-        growthMethods.convertZScoreToCentile(widget.data.bmiSDS);
+        growthMethods.convertZScoreToCentile(widget.data.bmiSDS!);
     widget.data.heightSDS = growthMethods.sds(
-        "height", widget.data.decimalAge, height, !data.isFemale);
+        "height", widget.data.decimalAge!, height, !data.isFemale);
     widget.data.heightCentile =
-        growthMethods.convertZScoreToCentile(widget.data.heightSDS);
+        growthMethods.convertZScoreToCentile(widget.data.heightSDS!);
     widget.data.weightSDS = growthMethods.sds(
-        "weight", widget.data.decimalAge, weight, !data.isFemale);
+        "weight", widget.data.decimalAge!, weight, !data.isFemale);
     widget.data.weightCentile =
-        growthMethods.convertZScoreToCentile(widget.data.weightSDS);
+        growthMethods.convertZScoreToCentile(widget.data.weightSDS!);
     double medianbmi = growthMethods.medianBMI(
-        widget.data.bmi, widget.data.isFemale, widget.data.decimalAge);
+        widget.data.bmi!, widget.data.isFemale, widget.data.decimalAge!);
     widget.data.hundredPCTWeight =
-        growthMethods.weightForBMI(widget.data.height, medianbmi);
+        growthMethods.weightForBMI(widget.data.height!, medianbmi);
     widget.data.ninetyFivePCTWeight =
-        growthMethods.weightForBMI(widget.data.height, medianbmi * 0.95);
+        growthMethods.weightForBMI(widget.data.height!, medianbmi * 0.95);
     widget.data.ninetyPCTWeight =
-        growthMethods.weightForBMI(widget.data.height, medianbmi * 0.9);
+        growthMethods.weightForBMI(widget.data.height!, medianbmi * 0.9);
     widget.data.eightyFivePCTWeight =
-        growthMethods.weightForBMI(widget.data.height, medianbmi * 0.85);
+        growthMethods.weightForBMI(widget.data.height!, medianbmi * 0.85);
   }
 }

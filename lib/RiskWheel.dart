@@ -1,7 +1,7 @@
 import 'dart:math';
-import 'package:marsipan/colours.dart';
-import 'package:marsipan/riskdetail.dart';
-import 'package:marsipan/risks.dart';
+import 'package:meed/colours.dart';
+import 'package:meed/riskdetail.dart';
+import 'package:meed/risks.dart';
 import 'package:flutter/material.dart';
 
 import 'board_view.dart';

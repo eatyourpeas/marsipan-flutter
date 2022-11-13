@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'data.dart';
 
 class AdultBMICalculatorResultsRoute extends StatefulWidget {
@@ -55,7 +53,7 @@ class AdultBMICalculatorResultsRouteState
 
 class ResultsWidget extends StatelessWidget {
   final AdultBMIData resultData;
-  ResultsWidget({this.resultData});
+  ResultsWidget({required this.resultData});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -156,7 +154,7 @@ class ResultsWidget extends StatelessWidget {
 
 class TargetsWidget extends StatelessWidget {
   final AdultBMIData resultData;
-  TargetsWidget({this.resultData});
+  TargetsWidget({required this.resultData});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -211,9 +209,9 @@ class TargetsWidget extends StatelessWidget {
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
   DotsIndicator({
-    this.controller,
-    this.itemCount,
-    this.onPageSelected,
+    required this.controller,
+    required this.itemCount,
+    required this.onPageSelected,
     this.color: Colors.red,
   }) : super(listenable: controller);
 

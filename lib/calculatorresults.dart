@@ -54,7 +54,7 @@ class CalculatorResultsRouteState extends State<CalculatorResultsRoute> {
 
 class ResultsWidget extends StatelessWidget {
   final Data resultData;
-  ResultsWidget({this.resultData});
+  ResultsWidget({required this.resultData});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -66,11 +66,11 @@ class ResultsWidget extends StatelessWidget {
             Padding(
                 padding: EdgeInsets.fromLTRB(0, 14, 0, 14),
                 child: Text(
-                  '${resultData.pctMBMI.toStringAsFixed(1)} %',
+                  '${resultData.pctMBMI!.toStringAsFixed(1)} %',
                   style: TextStyle(
-                      color: resultData.pctMBMI > 85
+                      color: resultData.pctMBMI! > 85
                           ? Colors.green
-                          : (resultData.pctMBMI < 75
+                          : (resultData.pctMBMI! < 75
                               ? Colors.red
                               : Colors.amber),
                       fontSize: 48.0),
@@ -94,7 +94,7 @@ class ResultsWidget extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 50, 10),
                   child: Text(
-                    '${resultData.decimalAge.toStringAsFixed(1)} years',
+                    '${resultData.decimalAge!.toStringAsFixed(1)} years',
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -117,7 +117,7 @@ class ResultsWidget extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
                   child: Text(
-                    '${resultData.height.toStringAsFixed(1)} cm',
+                    '${resultData.height!.toStringAsFixed(1)} cm',
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -146,7 +146,7 @@ class ResultsWidget extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
                   child: Text(
-                    '${resultData.heightSDS.toStringAsFixed(1)}',
+                    '${resultData.heightSDS!.toStringAsFixed(1)}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         color: Colors.black87,
@@ -206,7 +206,7 @@ class ResultsWidget extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
                   child: Text(
-                    '${resultData.weight.toStringAsFixed(1)} kg',
+                    '${resultData.weight!.toStringAsFixed(1)} kg',
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -235,7 +235,7 @@ class ResultsWidget extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
                   child: Text(
-                    '${resultData.weightSDS.toStringAsFixed(1)}',
+                    '${resultData.weightSDS!.toStringAsFixed(1)}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         color: Colors.black87,
@@ -295,7 +295,7 @@ class ResultsWidget extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
                   child: Text(
-                    '${resultData.bmi.toStringAsFixed(1)} kg/m\u00B2',
+                    '${resultData.bmi!.toStringAsFixed(1)} kg/m\u00B2',
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       color: Colors.black,
@@ -328,7 +328,7 @@ class ResultsWidget extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
                   child: Text(
-                    '${resultData.bmiSDS.toStringAsFixed(1)}',
+                    '${resultData.bmiSDS!.toStringAsFixed(1)}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         color: Colors.black87,
@@ -378,7 +378,7 @@ class ResultsWidget extends StatelessWidget {
 
 class TargetsWidget extends StatelessWidget {
   final Data resultData;
-  TargetsWidget({this.resultData});
+  TargetsWidget({required this.resultData});
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -413,7 +413,7 @@ class TargetsWidget extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.fromLTRB(0, 20, 50, 10),
                         child: Text(
-                          '${resultData.eightyFivePCTWeight.toStringAsFixed(1)} kg',
+                          '${resultData.eightyFivePCTWeight!.toStringAsFixed(1)} kg',
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -436,7 +436,7 @@ class TargetsWidget extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.fromLTRB(0, 20, 50, 10),
                         child: Text(
-                          '${resultData.ninetyPCTWeight.toStringAsFixed(1)} kg',
+                          '${resultData.ninetyPCTWeight!.toStringAsFixed(1)} kg',
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -459,7 +459,7 @@ class TargetsWidget extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.fromLTRB(0, 20, 50, 10),
                         child: Text(
-                          '${resultData.ninetyFivePCTWeight.toStringAsFixed(1)} kg',
+                          '${resultData.ninetyFivePCTWeight!.toStringAsFixed(1)} kg',
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -482,7 +482,7 @@ class TargetsWidget extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.fromLTRB(0, 20, 50, 10),
                         child: Text(
-                          '${resultData.hundredPCTWeight.toStringAsFixed(1)} kg',
+                          '${resultData.hundredPCTWeight!.toStringAsFixed(1)} kg',
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -502,9 +502,9 @@ class TargetsWidget extends StatelessWidget {
 /// An indicator showing the currently selected page of a PageController
 class DotsIndicator extends AnimatedWidget {
   DotsIndicator({
-    this.controller,
-    this.itemCount,
-    this.onPageSelected,
+    required this.controller,
+    required this.itemCount,
+    required this.onPageSelected,
     this.color: Colors.red,
   }) : super(listenable: controller);
 

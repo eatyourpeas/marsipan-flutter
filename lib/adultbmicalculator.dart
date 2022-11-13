@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:marsipan/adultbmiresults.dart';
-import 'package:marsipan/riskdetail.dart';
+import 'package:meed/riskdetail.dart';
+import 'adultbmiresults.dart';
 import 'growthmethods.dart';
 import 'data.dart';
 
@@ -105,7 +105,7 @@ class _AdultBMICalculatorRouteState extends State<AdultBMICalculatorRoute> {
 
 class HeightWidget extends StatefulWidget {
   final AdultBMIData data;
-  HeightWidget({this.data});
+  HeightWidget({required this.data});
   @override
   _HeightWidgetState createState() => _HeightWidgetState();
 }
@@ -159,7 +159,7 @@ class _HeightWidgetState extends State<HeightWidget> {
                 child: TextFormField(
                   focusNode: _focus,
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value!.isEmpty) {
                       return 'Please enter height in cm';
                     }
                     return null;
@@ -214,7 +214,7 @@ class _HeightWidgetState extends State<HeightWidget> {
 
 class WeightWidget extends StatefulWidget {
   final AdultBMIData data;
-  WeightWidget({this.data});
+  WeightWidget({required this.data});
   @override
   _WeightWidgetState createState() => _WeightWidgetState();
 }
@@ -299,7 +299,7 @@ class _WeightWidgetState extends State<WeightWidget> {
 class ImperialDecimalWidget extends StatefulWidget {
   final AdultBMIData data;
   final IntCallback changeImperial;
-  ImperialDecimalWidget({this.data, this.changeImperial});
+  ImperialDecimalWidget({required this.data, required this.changeImperial});
   @override
   _ImperialDecimalWidgetState createState() => _ImperialDecimalWidgetState();
 }
@@ -360,7 +360,7 @@ class _ImperialDecimalWidgetState extends State<ImperialDecimalWidget> {
 
 class CalculateWidget extends StatefulWidget {
   final AdultBMIData data;
-  CalculateWidget({this.data});
+  CalculateWidget({required this.data});
   @override
   _CalculateWidgetState createState() => _CalculateWidgetState();
 }

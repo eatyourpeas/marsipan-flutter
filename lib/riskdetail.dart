@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marsipan/risks.dart';
+import 'package:meed/risks.dart';
 
 typedef void IntCallback(int id);
 
@@ -9,11 +9,11 @@ class RiskDetail extends StatefulWidget {
   final int marsipanCategoryIndex;
   RiskCategory riskCategory;
   RiskDetail(
-      {Key key,
-      this.riskCategory,
-      this.marsipanCategoryIndex,
-      this.selected,
-      this.onRiskDetailUpdate});
+      {Key? key,
+      required this.riskCategory,
+      required this.marsipanCategoryIndex,
+      required this.selected,
+      required this.onRiskDetailUpdate});
   @override
   _RiskDetailWidgetState createState() => _RiskDetailWidgetState();
 }
