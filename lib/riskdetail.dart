@@ -3,11 +3,12 @@ import 'package:meed/risks.dart';
 
 typedef void IntCallback(int id);
 
+// ignore: must_be_immutable
 class RiskDetail extends StatefulWidget {
   final IntCallback onRiskDetailUpdate;
   bool selected = false;
   final int marsipanCategoryIndex;
-  RiskCategory riskCategory;
+  final RiskCategory riskCategory;
   RiskDetail(
       {Key? key,
       required this.riskCategory,
@@ -92,18 +93,6 @@ class _RiskDetailWidgetState extends State<RiskDetail> {
                       }
                     });
                   },
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.all(20.0),
-                    child: Text(
-                      item.over18descriptions[0],
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Raleway',
-                          fontWeight: FontWeight.w300,
-                          fontSize: 18),
-                    ),
-                  ),
                 )),
           );
         },

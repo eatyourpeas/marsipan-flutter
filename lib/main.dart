@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
             splashColor: rcpchDarkBlue,
             highlightColor: rcpchDarkBlue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
-            backgroundColor: RCPCHLightGrey.shade600,
             fontFamily: 'Montserrat'),
         routes: {
           RiskAssessmentRoute.routeName: (context) =>
@@ -37,42 +36,44 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                new RichText(
-                    text: new TextSpan(children: <TextSpan>[
-                  new TextSpan(
-                      text: 'M',
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 72,
-                          fontFamily: 'Montserrat')),
-                  new TextSpan(
-                      text: 'E',
-                      style: TextStyle(
-                          color: Colors.amber,
-                          fontSize: 72,
-                          fontFamily: 'Montserrat')),
-                  new TextSpan(
-                      text: 'E',
-                      style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 72,
-                          fontFamily: 'Montserrat')),
-                  new TextSpan(
-                      text: 'D',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 72,
-                          fontFamily: 'Montserrat')),
-                ])),
-                Text(
-                  'Managing Emergencies in Eating Disorders',
-                  style: TextStyle(fontFamily: 'Montserrat'),
-                )
-              ],
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  new RichText(
+                      text: new TextSpan(children: <TextSpan>[
+                    new TextSpan(
+                        text: 'M',
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 72,
+                            fontFamily: 'Montserrat')),
+                    new TextSpan(
+                        text: 'E',
+                        style: TextStyle(
+                            color: Colors.amber,
+                            fontSize: 72,
+                            fontFamily: 'Montserrat')),
+                    new TextSpan(
+                        text: 'E',
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 72,
+                            fontFamily: 'Montserrat')),
+                    new TextSpan(
+                        text: 'D',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 72,
+                            fontFamily: 'Montserrat')),
+                  ])),
+                  Text(
+                    'Managing Emergencies in Eating Disorders',
+                    style: TextStyle(fontFamily: 'Montserrat'),
+                  )
+                ],
+              ),
             ),
             ElevatedButton(
               child: Text(

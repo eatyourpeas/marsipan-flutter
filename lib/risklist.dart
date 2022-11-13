@@ -8,10 +8,24 @@ class RiskAssessmentToolArguments {
   RiskAssessmentToolArguments(this.isOver18y);
 }
 
-class RiskAssessmentRoute extends StatelessWidget {
+class RiskAssessmentRoute extends StatefulWidget {
   const RiskAssessmentRoute({super.key});
-
   static const routeName = '/riskAssessmentTool';
+
+  @override
+  State<RiskAssessmentRoute> createState() => _RiskAssessmentRoute();
+}
+
+class _RiskAssessmentRoute extends State<RiskAssessmentRoute> {
+  List<Risk> selectedRisks =
+      scoredCategories; // the list of selected categories
+
+  void _updateRiskCallback(riskIndex) {
+    // this is a callback function from RiskWheel
+    setState(() {
+      selectedRisks = scoredCategories;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,77 +40,70 @@ class RiskAssessmentRoute extends StatelessWidget {
         appBar: AppBar(
           title: Text('Risk Assessment Tool $suffix'),
         ),
-        body: RiskBodyLayout(
-          isOver18: args.isOver18y,
-        ));
+        body: RiskList(
+            isOver18: args.isOver18y,
+            selectedRisks: selectedRisks,
+            onRiskSelectionChanged: (riskIndex) {
+              _updateRiskCallback(riskIndex);
+            }),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(FontAwesomeIcons.arrowsRotate),
+            onPressed: (() => setState(() {
+                  // reset all the risks to unscored
+                  for (var i = 0; i < scoredCategories.length; i++) {
+                    scoredCategories[i] = marsipanCategories[i].unscored;
+                  }
+                }))));
   }
 }
 
-class RiskBodyLayout extends StatefulWidget {
-  final bool isOver18;
+typedef IntCallback(riskIndex);
 
-  const RiskBodyLayout({Key? key, required this.isOver18}) : super(key: key);
+class RiskList extends StatelessWidget {
+  final selectedRisks;
+  final isOver18;
 
-  @override
-  RiskBodyLayoutState createState() {
-    return new RiskBodyLayoutState();
-  }
-}
+  final IntCallback onRiskSelectionChanged;
+  RiskList(
+      {Key? key,
+      required this.isOver18,
+      required this.selectedRisks,
+      required this.onRiskSelectionChanged})
+      : super(key: key);
 
-class RiskBodyLayoutState extends State<RiskBodyLayout> {
   @override
   Widget build(BuildContext context) {
-    return _risksListView(context);
-  }
-
-  List<Risk> selectedRisks =
-      scoredCategories; // the list of selected categories
-
-  _updateRiskCallback(riskIndex) {
-    // this is a callback function from RiskWheel
-    setState(() {
-      selectedRisks = scoredCategories;
-    });
-  }
-
-  Widget _risksListView(BuildContext context) {
     return ListView.builder(
         itemCount: selectedRisks.length,
         itemBuilder: (context, index) {
-          return Container(
-            decoration: new BoxDecoration(
-                color: scoredCategories[index].selectedColour),
-            child: ListTile(
-              leading: FaIcon(marsipanCategories[index].icon,
+          return ListTile(
+            tileColor: scoredCategories[index].selectedColour,
+            leading: FaIcon(marsipanCategories[index].icon,
+                color: scoredCategories[index].selectedColour == Colors.white
+                    ? Colors.black
+                    : Colors.white),
+            title: Text(
+              marsipanCategories[index].category,
+              style: TextStyle(
                   color: scoredCategories[index].selectedColour == Colors.white
                       ? Colors.black
                       : Colors.white),
-              title: Text(
-                marsipanCategories[index].category,
-                style: TextStyle(
-                    color:
-                        scoredCategories[index].selectedColour == Colors.white
-                            ? Colors.black
-                            : Colors.white),
-              ),
-              trailing: Icon(Icons.keyboard_arrow_right,
-                  color: scoredCategories[index].selectedColour == Colors.white
-                      ? Colors.black
-                      : Colors.white),
-              onTap: () async {
-                await Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (BuildContext context) => new RiskWheel(
-                              riskCategory: marsipanCategories[index],
-                              marsipanCategoryIndex: index,
-                              onUpdateRiskDetail: _updateRiskCallback,
-                              isOver18y: widget.isOver18,
-                            )));
-                // setState(() {}
-                // );
-              },
             ),
+            trailing: Icon(Icons.keyboard_arrow_right,
+                color: scoredCategories[index].selectedColour == Colors.white
+                    ? Colors.black
+                    : Colors.white),
+            onTap: () async {
+              await Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (BuildContext context) => new RiskWheel(
+                            riskCategory: marsipanCategories[index],
+                            marsipanCategoryIndex: index,
+                            onUpdateRiskDetail: onRiskSelectionChanged,
+                            isOver18y: isOver18,
+                          )));
+            },
           );
         });
   }
