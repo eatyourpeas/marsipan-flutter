@@ -59,9 +59,6 @@ class _RiskDetailWidgetState extends State<RiskDetail> {
           if (index == 2) {
             item = widget.riskCategory.green;
           }
-          if (index == 3) {
-            item = widget.riskCategory.blue;
-          }
           if (scoredCategories[widget.marsipanCategoryIndex].colour ==
               item.colour) {
             widget.selected = true;
@@ -99,7 +96,7 @@ class _RiskDetailWidgetState extends State<RiskDetail> {
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.all(20.0),
                     child: Text(
-                      item.description,
+                      item.over18descriptions[0],
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Raleway',

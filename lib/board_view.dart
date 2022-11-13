@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import 'arrow_view.dart';
 import 'model.dart';
@@ -39,7 +38,7 @@ class _BoardViewState extends State<BoardView> {
               boxShadow: [BoxShadow(blurRadius: 20, color: Colors.black38)]),
         ),
         Transform.rotate(
-          angle: -(widget.current + widget.angle) * 4 * pi,
+          angle: -(widget.current + widget.angle) * 3 * pi,
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
@@ -58,7 +57,7 @@ class _BoardViewState extends State<BoardView> {
 
   _buildCard(RiskColour riskColour) {
     var _rotate = _rotote(widget.items.indexOf(riskColour));
-    var _angle = 0.5 * pi;
+    var _angle = 0.67 * pi;
     return Transform.rotate(
       angle: _rotate,
       child: ClipPath(

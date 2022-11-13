@@ -14,12 +14,12 @@ description: The official MaRSiPAN Risk Assessment Tool and %MedianBMI Calculato
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   intl: ^0.16.0
   timeago: ^2.0.24
-  line_awesome_icons: ^1.0.4+2
+  font_awesome_flutter: ^10.2.1
   flutter:
     sdk: flutter
 
@@ -39,6 +39,15 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/static/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/static/Montserrat-Bold.ttf
+          weight: 700
+          style: normal
+        - asset: assets/fonts/Montserrat/static/Montserrat-Italic.ttf
+          style: italic
+        
     - family: OpenSans
       fonts:
         - asset: assets/fonts/Open_Sans/OpenSans-Bold.ttf

@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'growthmethods.dart';
 import 'package:marsipan/calculatorresults.dart';
@@ -179,7 +178,7 @@ class _WeightWidgetState extends State<WeightWidget> {
             Container(
               child: Container(
                 child: new Icon(
-                  LineAwesomeIcons.balance_scale,
+                  FontAwesomeIcons.scaleBalanced,
                 ),
               ),
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 10.0, 0.0),
@@ -369,7 +368,7 @@ class _SexChoiceWidgetState extends State<SexChoiceWidget> {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.fromLTRB(30.0, 10.0, 10.0, 0.0),
-                  child: Icon(LineAwesomeIcons.male),
+                  child: Icon(FontAwesomeIcons.mars),
                 )
               ],
             ),
@@ -387,7 +386,7 @@ class _SexChoiceWidgetState extends State<SexChoiceWidget> {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 0.0),
-                  child: Icon(LineAwesomeIcons.female),
+                  child: Icon(FontAwesomeIcons.venus),
                 )
               ],
             ),

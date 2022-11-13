@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:marsipan/adultbmiresults.dart';
 import 'package:marsipan/riskdetail.dart';
 import 'growthmethods.dart';
@@ -241,7 +240,7 @@ class _WeightWidgetState extends State<WeightWidget> {
             Container(
               child: Container(
                 child: new Icon(
-                  LineAwesomeIcons.balance_scale,
+                  FontAwesomeIcons.scaleBalanced,
                 ),
               ),
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 10.0, 0.0),

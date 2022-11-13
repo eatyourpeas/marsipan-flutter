@@ -1,16 +1,32 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
-import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Risk {
   final String category;
   final String colour;
-  final String description;
+  List<String> over18descriptions = [];
+  List<String> under18descriptions = [];
+  List<String> over18references = [];
+  List<String> under18references = [];
+  List<String> over18guidance = [];
+  List<String> under18guidance = [];
   final String grade;
   final Color selectedColour;
   final Color selectedPaleColour;
 
-  Risk(this.category, this.colour, this.description, this.grade,
-      this.selectedColour, this.selectedPaleColour);
+  Risk(
+      this.category,
+      this.colour,
+      this.over18descriptions,
+      this.under18descriptions,
+      this.over18references,
+      this.under18references,
+      this.over18guidance,
+      this.under18guidance,
+      this.grade,
+      this.selectedColour,
+      this.selectedPaleColour);
 }
 
 class RiskCategory {
@@ -19,424 +35,898 @@ class RiskCategory {
   final Risk red;
   final Risk amber;
   final Risk green;
-  final Risk blue;
   final Risk unscored;
 
   RiskCategory(this.category, this.icon, this.red, this.amber, this.green,
-      this.blue, this.unscored);
+      this.unscored);
 }
 
+final riskCategoryNames = [
+  'Weight loss',
+  'BMI and weight',
+  'HR (awake)',
+  'Cardiovascular health',
+  'Hydration status',
+  'Temperature',
+  'Muscular function: SUSS test',
+  'Muscular function: hand grip strength',
+  'Muscular function: MUAC',
+  'Other clinical state',
+  'ECG abnormalities',
+  'Biochemical abnormalities',
+  'Haematology',
+  'Disordered eating behaviours',
+  'Engagement with management plan',
+  'Activity and exercise',
+  'Purging behaviours',
+  'Self harm and suicide'
+];
+
 List<Risk> scoredCategories = [
-  marsipanRisks[4],
-  marsipanRisks[9],
-  marsipanRisks[14],
+  marsipanRisks[3],
+  marsipanRisks[7],
+  marsipanRisks[11],
+  marsipanRisks[15],
   marsipanRisks[19],
-  marsipanRisks[24],
-  marsipanRisks[29],
-  marsipanRisks[34],
+  marsipanRisks[23],
+  marsipanRisks[27],
+  marsipanRisks[31],
+  marsipanRisks[35],
   marsipanRisks[39],
-  marsipanRisks[44],
-  marsipanRisks[49],
-  marsipanRisks[54],
+  marsipanRisks[43],
+  marsipanRisks[47],
+  marsipanRisks[51],
+  marsipanRisks[55],
   marsipanRisks[59],
-  marsipanRisks[64]
+  marsipanRisks[63],
+  marsipanRisks[67],
+  marsipanRisks[71]
 ];
 
 List<RiskCategory> marsipanCategories = [
-  RiskCategory('Body Mass', LineAwesomeIcons.balance_scale, marsipanRisks[0],
-      marsipanRisks[1], marsipanRisks[2], marsipanRisks[3], marsipanRisks[4]),
   RiskCategory(
-      'Cardiovascular Health',
-      LineAwesomeIcons.heart,
-      marsipanRisks[5],
-      marsipanRisks[6],
-      marsipanRisks[7],
-      marsipanRisks[8],
-      marsipanRisks[9]),
+    'Weight loss',
+    FontAwesomeIcons.scaleUnbalanced,
+    marsipanRisks[0],
+    marsipanRisks[1],
+    marsipanRisks[2],
+    marsipanRisks[3],
+  ),
+  RiskCategory('BMI and weight', FontAwesomeIcons.scaleBalanced,
+      marsipanRisks[4], marsipanRisks[5], marsipanRisks[6], marsipanRisks[7]),
+  RiskCategory('HR (awake)', FontAwesomeIcons.heart, marsipanRisks[8],
+      marsipanRisks[9], marsipanRisks[10], marsipanRisks[11]),
   RiskCategory(
-      'ECG Abnormalities',
-      LineAwesomeIcons.heartbeat,
-      marsipanRisks[10],
-      marsipanRisks[11],
+      'Cardiovascular health',
+      FontAwesomeIcons.heart,
       marsipanRisks[12],
       marsipanRisks[13],
-      marsipanRisks[14]),
+      marsipanRisks[14],
+      marsipanRisks[15]),
+  RiskCategory('Hydration status', FontAwesomeIcons.droplet, marsipanRisks[16],
+      marsipanRisks[17], marsipanRisks[18], marsipanRisks[19]),
+  RiskCategory('Temperature', Icons.ac_unit, marsipanRisks[20],
+      marsipanRisks[21], marsipanRisks[22], marsipanRisks[23]),
   RiskCategory(
-      'Hydration Status',
-      LineAwesomeIcons.tint,
-      marsipanRisks[15],
-      marsipanRisks[16],
-      marsipanRisks[17],
-      marsipanRisks[18],
-      marsipanRisks[19]),
-  RiskCategory(
-      'Temperature',
-      Icons.ac_unit,
-      marsipanRisks[20],
-      marsipanRisks[21],
-      marsipanRisks[22],
-      marsipanRisks[23],
-      marsipanRisks[24]),
-  RiskCategory(
-      'Biochemical Abnormalities',
-      LineAwesomeIcons.ambulance,
+      'Muscular function: SUSS test',
+      FontAwesomeIcons.personArrowUpFromLine,
+      marsipanRisks[24],
       marsipanRisks[25],
       marsipanRisks[26],
-      marsipanRisks[27],
-      marsipanRisks[28],
-      marsipanRisks[29]),
+      marsipanRisks[27]),
   RiskCategory(
-      'Calorie Intake',
-      LineAwesomeIcons.battery_half,
+      'Muscular function: hand grip strength',
+      FontAwesomeIcons.handFist,
+      marsipanRisks[28],
+      marsipanRisks[29],
       marsipanRisks[30],
-      marsipanRisks[31],
+      marsipanRisks[31]),
+  RiskCategory(
+      'Muscular function: MUAC',
+      FontAwesomeIcons.tape,
       marsipanRisks[32],
       marsipanRisks[33],
-      marsipanRisks[34]),
+      marsipanRisks[34],
+      marsipanRisks[35]),
   RiskCategory(
-      'Engagement With Management Plan',
-      LineAwesomeIcons.comments,
-      marsipanRisks[35],
+      'Other clinical state',
+      FontAwesomeIcons.houseMedicalCircleExclamation,
       marsipanRisks[36],
       marsipanRisks[37],
       marsipanRisks[38],
       marsipanRisks[39]),
   RiskCategory(
-      'Activity and Exercise',
-      LineAwesomeIcons.bicycle,
+      'ECG abnormalities',
+      FontAwesomeIcons.heartCircleBolt,
       marsipanRisks[40],
       marsipanRisks[41],
       marsipanRisks[42],
-      marsipanRisks[43],
-      marsipanRisks[44]),
+      marsipanRisks[43]),
   RiskCategory(
-      'Self Harm and Suicide',
-      LineAwesomeIcons.frown_o,
+      'Biochemical abnormalities',
+      FontAwesomeIcons.syringe,
+      marsipanRisks[44],
       marsipanRisks[45],
       marsipanRisks[46],
-      marsipanRisks[47],
-      marsipanRisks[48],
-      marsipanRisks[49]),
+      marsipanRisks[47]),
+  RiskCategory('Haematology', FontAwesomeIcons.droplet, marsipanRisks[48],
+      marsipanRisks[49], marsipanRisks[50], marsipanRisks[51]),
   RiskCategory(
-      'Muscular Weakness',
-      LineAwesomeIcons.hand_grab_o,
-      marsipanRisks[50],
-      marsipanRisks[51],
+      'Disordered eating behaviours',
+      FontAwesomeIcons.utensils,
       marsipanRisks[52],
       marsipanRisks[53],
-      marsipanRisks[54]),
+      marsipanRisks[54],
+      marsipanRisks[55]),
   RiskCategory(
-      'Other Mental Health Diagnoses',
-      LineAwesomeIcons.hand_peace_o,
-      marsipanRisks[55],
+      'Engagement with management plan',
+      FontAwesomeIcons.handshakeSimple,
       marsipanRisks[56],
       marsipanRisks[57],
       marsipanRisks[58],
       marsipanRisks[59]),
   RiskCategory(
-      'Other',
-      LineAwesomeIcons.stethoscope,
+      'Activity and exercise',
+      FontAwesomeIcons.personRunning,
       marsipanRisks[60],
       marsipanRisks[61],
       marsipanRisks[62],
-      marsipanRisks[63],
-      marsipanRisks[64])
+      marsipanRisks[63]),
+  RiskCategory(
+      'Purging behaviours',
+      FontAwesomeIcons.faceFrown,
+      marsipanRisks[64],
+      marsipanRisks[65],
+      marsipanRisks[66],
+      marsipanRisks[67]),
+  RiskCategory(
+      'Self harm and suicide',
+      FontAwesomeIcons.faceSadTear,
+      marsipanRisks[68],
+      marsipanRisks[69],
+      marsipanRisks[70],
+      marsipanRisks[71]),
 ];
 
 List<Risk> marsipanRisks = [
+  // 'Weight loss'
   Risk(
-      'Body Mass',
+      'Weight loss',
       'Red',
-      'Percentage Median BMI <70 [Approximates to below 0.4th BMI centile] OR Recent loss of weight of 1kg or more/week for two consecutive weeks',
+      [
+        'Physical struggles with staff or parents/carers over nutrition or reduction of exercise',
+        'Harm to self',
+        'Poor insight or motivation',
+        'Fear leading to resistance to weight gain',
+        'Staff or parents/carers unable to implement meal plan prescribed',
+      ],
+      [
+        'Physical struggles with staff or parents/carers over nutrition or reduction of exercise',
+        'Harm to self',
+        'Poor insight or motivation',
+        'Fear leading to resistance to weight gain',
+        'Staff or parents/carers unable to implement meal plan prescribed',
+      ],
+      [
+        'Patients losing weight at higher BMI should be strategies to determine risk.'
+      ],
+      [
+        'Patients losing weight at higher BMI should be strategies to determine risk.'
+      ],
+      [],
+      [],
       '',
       Colors.red,
       Colors.red.shade100),
   Risk(
-      'Body Mass',
+      'Weight loss',
       'Amber',
-      'Percentage Median BMI 70-80% [Approximates to between 2nd and 0.4th BMI centile] OR Recent loss of weight of 500g-999g/week for two consecutive weeks',
+      [
+        'Recent loss of weight of 500–999g/week for 2 consecutive weeks in an undernourished patient',
+      ],
+      [
+        'Recent loss of weight of 500–999g/week for 2 consecutive weeks in an undernourished patient',
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.amber,
       Colors.amber.shade100),
   Risk(
-      'Body Mass',
+      'Weight loss',
       'Green',
-      'Percentage Median BMI 80-85% [Approximates to between 9th and 2nd BMI centile] OR Recent weight loss of up to 500g/week for two consecutive weeks',
+      [
+        'Recent weight loss of <500g/week or fluctuating weight',
+      ],
+      [
+        'Recent weight loss of <500g/week or fluctuating weight',
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.green,
       Colors.green.shade100),
+  Risk('Weight loss', 'White', ['Unscored'], ['Unscored'], [], [], [], [], '0',
+      Colors.white, Colors.white),
+
+  // 'BMI and weight'
   Risk(
-      'Body Mass',
-      'Blue',
-      'Percentage Median BMI>85% [Approximates to above 9th BMI centile] OR No weight loss over past two weeks',
-      '',
-      Colors.blue,
-      Colors.blue.shade100),
-  Risk('Body Mass', 'White', 'Unscored', '0', Colors.white, Colors.white),
-  Risk(
-      'Cardiovascular Health',
+      'BMI and weight',
       'Red',
-      'Heart rate (awake) <40 bpm. History of Recurrent Syncope. Marked orthostatic changes (fall in systolic blood pressure of 20mmHg or more, or below 0.4th-2nd centiles for age, or increase in heart rate up to 30bpm)',
+      ['BMI <13'],
+      ['m%BMI35 <70%'],
+      [
+        'Patients losing weight at higher BMI should be strategies to determine risk.'
+      ],
+      [
+        'Patients losing weight at higher BMI should be strategies to determine risk.'
+      ],
+      [],
+      [],
+      '',
+      Colors.red,
+      Colors.red.shade100),
+  Risk('BMI and weight', 'Amber', ['BMI 13–14.9'], ['m%BMI 70– 80%'], [], [],
+      [], [], '', Colors.amber, Colors.amber.shade100),
+  Risk(
+      'BMI and weight',
+      'Green',
+      ['BMI >15'],
+      ['m%BMI >80%'],
+      [],
+      [
+        'Note these do not denote a healthy weight but framework may better reflect risk.'
+      ],
+      [],
+      [],
+      '',
+      Colors.green,
+      Colors.green.shade100),
+  Risk('BMI and weight', 'White', ['Unscored'], ['Unscored'], [], [], [], [],
+      '0', Colors.white, Colors.white),
+
+  // 'HR (awake)'
+  Risk('HR (awake)', 'Red', ['<40'], ['<40'], [], [], [], [], '', Colors.red,
+      Colors.red.shade100),
+  Risk('HR (awake)', 'Amber', ['40-50'], ['40-50'], [], [], [], [], '',
+      Colors.amber, Colors.amber.shade100),
+  Risk('HR (awake)', 'Green', ['>50'], ['>50'], [], [], [], [], '',
+      Colors.green, Colors.green.shade100),
+  Risk('HR (awake)', 'White', ['Unscored'], ['Unscored'], [], [], [], [], '0',
+      Colors.white, Colors.white),
+
+  // 'Cardiovascular health'
+  Risk(
+      'Cardiovascular health',
+      'Red',
+      [
+        'systolic BP less than 90mmHg, associated with recurrent syncope and postural drop in systolic BP of >20mmHg or increase in HR of over 30bpm'
+      ],
+      [
+        'systolic BP below 0.4th centile for age, associated with recurrent syncope and postural drop in systolic BP of >20mmHg or increase in HR of over 30bpm (35bpm in <16 years)'
+      ],
+      [],
+      [],
+      ['https://pubmed.ncbi.nlm.nih.gov/24067349/'],
+      ['https://www.nhlbi.nih.gov/files/docs/guidelines/child_tbl.pdf'],
       '',
       Colors.red,
       Colors.red.shade100),
   Risk(
-      'Cardiovascular Health',
+      'Cardiovascular health',
       'Amber',
-      'Heart rate (awake) 40-50bpm. Sitting Blood Pressure: Systolic below 0.4th centile (84-98mmHg depending on age and sex). Diastolic: below 0.4th centile (35-40 mmHg depending on age and sex). Moderate orthostatic cardiovascular changes (fall in systolic blood pressure of 15mmHg or more, or diastolic blood pressure fall of 10mmHg or more within 3 mins standing, or increase in heart rate up to 30bpm). Occasional syncope',
+      [
+        'Standing systolic BP <0.4th centile associated with occasional syncope',
+        'postural drop in systolic BP of >15mmHg or increase in HR of up to 30bpm (35bpm in <16 years)'
+      ],
+      [
+        'Standing systolic BP <90mmHg if 18+ associated with occasional syncope; postural drop in systolic BP of >15mmHg or increase in HR of up to 30bpm (35bpm in <16 years)'
+      ],
+      [],
+      [],
+      ['https://pubmed.ncbi.nlm.nih.gov/24067349/'],
+      ['https://www.nhlbi.nih.gov/files/docs/guidelines/child_tbl.pdf'],
       '',
       Colors.amber,
       Colors.amber.shade100),
   Risk(
-      'Cardiovascular Health',
+      'Cardiovascular health',
       'Green',
-      'Heart rate (awake) 50-60bpm. Sitting Blood Pressure: Systolic below 2nd centile (88 - 105mmHg depending on age and sex), Diastolic below 2nd centile (40 - 45mmHg depending on age and sex). Pre-syncopal symptoms but no orthostatic cardiovascular changes. Cool peripheries.<br>Prolonged peripheral capillary refill time (normal central capillary refill time)',
+      [
+        'Normal standing systolic BP for age and gender with reference to centile charts',
+        'Normal orthostatic cardiovascular changes'
+      ],
+      [
+        'Normal standing systolic BP',
+        'Normal orthostatic cardiovascular changes'
+      ],
+      [],
+      [],
+      ['https://pubmed.ncbi.nlm.nih.gov/24067349/'],
+      ['https://www.nhlbi.nih.gov/files/docs/guidelines/child_tbl.pdf'],
       '',
       Colors.green,
       Colors.green.shade100),
+  Risk('Cardiovascular health', 'White', ['Unscored'], ['Unscored'], [], [], [],
+      [], '0', Colors.white, Colors.white),
+
+  // 'Hydration status'
   Risk(
-      'Cardiovascular Health',
-      'Blue',
-      'Heart rate (awake) >60bpm. Normal sitting blood pressure for age and sex with reference to centile charts. Normal orthostatic cardiovascular changes. Normal heart rhythm',
-      '',
-      Colors.blue,
-      Colors.blue.shade100),
-  Risk('Cardiovascular Health', 'White', 'Unscored', '0', Colors.white,
-      Colors.white),
-  Risk(
-      'ECG Abnormalities',
+      'Hydration status',
       'Red',
-      'Irregular heart rhythm (does not include sinus arrhythmia). QTc >450 ms with evidence of bradyarrhythmia or tachyarrhythmia (excludes sinus bradycardia and sinus arrhythmia). ECG evidence of biochemical abnormality',
-      '',
-      Colors.red,
-      Colors.red.shade100),
-  Risk('ECG Abnormalities', 'Amber', 'QTc >450ms', '', Colors.amber,
-      Colors.amber.shade100),
-  Risk(
-      'ECG Abnormalities',
-      'Green',
-      'QTc < 450ms AND taking medication known to prolong QTc interval. Family history of prolonged QTc or deafness',
-      '',
-      Colors.green,
-      Colors.green.shade100),
-  Risk('ECG Abnormalities', 'Blue', 'QTc < 450ms', '', Colors.blue,
-      Colors.blue.shade100),
-  Risk('ECG Abnormalities', 'White', 'Unscored', '0', Colors.white,
-      Colors.white),
-  Risk(
-      'Hydration Status',
-      'Red',
-      'Severe dehydration (10%): Reduced urine output, Dry mouth, Decreased skin turgor, sunken eyes, Tachypnoea, Tachycardia',
+      [
+        'Fluid refusal',
+        'Severe dehydration (10%): reduced urine output, dry mouth, postural BP drop (see Cardiovascular health) decreased skin turgor, sunken eyes, tachypnoea, tachycardia'
+      ],
+      [
+        'Fluid refusal',
+        'Severe dehydration (10%): reduced urine output, dry mouth, postural BP drop (see Cardiovascular health) decreased skin turgor, sunken eyes, tachypnoea, tachycardia'
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.red,
       Colors.red.shade100),
   Risk(
-      'Hydration Status',
+      'Hydration status',
       'Amber',
-      'Moderate dehydration (5-10%). Reduced urine output. Dry mouth. Normal skin turgor. Some tachypnoea. Some tachycardia. Peripheral oedema',
+      [
+        'Severe fluid restriction',
+        'Moderate dehydration (5–10%): reduced urine output, dry mouth, postural BP drop (see above), normal skin turgor, some tachypnoea, some tachycardia, peripheral oedema'
+      ],
+      [
+        'Severe fluid restriction',
+        'Moderate dehydration (5–10%): reduced urine output, dry mouth, postural BP drop (see above), normal skin turgor, some tachypnoea, some tachycardia, peripheral oedema'
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.amber,
       Colors.amber.shade100),
   Risk(
-      'Hydration Status',
+      'Hydration status',
       'Green',
-      'Mild (less than 5%). May have dry mouth or not clinically dehydrated but with concerns about risk of dehydration with negative fluid balance.',
+      [
+        'Minimal fluid restriction.',
+        'No more than mild dehydration (<5%): may have dry mouth or concerns about risk of dehydration with negative fluid balance'
+      ],
+      [
+        'Minimal fluid restriction.',
+        'No more than mild dehydration (<5%): may have dry mouth or concerns about risk of dehydration with negative fluid balance'
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.green,
       Colors.green.shade100),
-  Risk('Hydration Status', 'Blue', 'Not clinically dehydrated', '', Colors.blue,
-      Colors.blue.shade100),
-  Risk(
-      'Hydration Status', 'White', 'Unscored', '0', Colors.white, Colors.white),
+  Risk('Hydration status', 'White', ['Unscored'], ['Unscored'], [], [], [], [],
+      '0', Colors.white, Colors.white),
+
+  // 'Temperature'
   Risk(
       'Temperature',
       'Red',
-      'below 35.5 degrees Celsius (tympanic) OR below 35.0 degrees Celsius axillary',
+      ['<35.5°C tympanic or 35.0°C axillary'],
+      ['<35.5°C tympanic or 35.0°C axillary'],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.red,
       Colors.red.shade100),
-  Risk('Temperature', 'Amber', 'below 36 degrees Celsius', '', Colors.amber,
-      Colors.amber.shade100),
-  Risk('Temperature', 'Green', 'Normal', '', Colors.green,
-      Colors.green.shade100),
-  Risk('Temperature', 'Blue', 'Normal', '', Colors.blue, Colors.blue.shade100),
-  Risk('Temperature', 'White', 'Unscored', '0', Colors.white, Colors.white),
-  Risk(
-      'Biochemical Abnormalities',
-      'Red',
-      'Hypophosphataemia, Hypokalaemia, Hyponatraemia, Hypocalcaemia',
-      '',
-      Colors.red,
-      Colors.red.shade100),
-  Risk(
-      'Biochemical Abnormalities',
-      'Amber',
-      'Hypophosphataemia. Hypokalaemia. Hyponatraemia. Hypocalcaemia.',
-      '',
-      Colors.amber,
-      Colors.amber.shade100),
-  Risk('Biochemical Abnormalities', 'Green', 'Normal Results', '', Colors.green,
-      Colors.green.shade100),
-  Risk('Biochemical Abnormalities', 'Blue', 'Normal Results', '', Colors.blue,
-      Colors.blue.shade100),
-  Risk('Biochemical Abnormalities', 'White', 'Unscored', '0', Colors.white,
-      Colors.white),
-  Risk(
-      'Calorie Intake',
-      'Red',
-      'Acute food refusal OR estimated calorie intake 400-600kcal per day',
-      '',
-      Colors.red,
-      Colors.red.shade100),
-  Risk(
-      'Calorie Intake',
-      'Amber',
-      'Severe restriction (less than 50% of required intake). Vomiting. Purging with laxatives',
-      '',
-      Colors.amber,
-      Colors.amber.shade100),
-  Risk('Calorie Intake', 'Green', 'Moderate restriction. Bingeing.', '',
+  Risk('Temperature', 'Amber', ['<36°C'], ['<36°C'], [], [], [], [], '',
+      Colors.amber, Colors.amber.shade100),
+  Risk('Temperature', 'Green', ['>36°C'], ['>36°C'], [], [], [], [], '',
       Colors.green, Colors.green.shade100),
-  Risk('Calorie Intake', 'Blue', 'Mild Restriction. No Bingeing', '',
-      Colors.blue, Colors.blue.shade100),
-  Risk('Calorie Intake', 'White', 'Unscored', '0', Colors.white, Colors.white),
-  Risk(
-      'Engagement With Management Plan',
-      'Red',
-      'Violent when parents try to limit behaviour or encourage food/fluid intake. Parental violence in relation to feeding (hitting, force feeding)',
-      '',
-      Colors.red,
-      Colors.red.shade100),
-  Risk(
-      'Engagement With Management Plan',
-      'Amber',
-      'Poor insight into eating problems. Lacks motivation to tackle eating problems. Resistance to changes required to gain weight. Parents unable to implement meal plan advice given by health care providers',
-      '',
-      Colors.amber,
-      Colors.amber.shade100),
-  Risk(
-      'Engagement With Management Plan',
-      'Green',
-      'Some insight into eating problems. Some motivation to tackle eating problems, ambivalent towards changes required to gain weight but not actively resisting.',
-      '',
-      Colors.green,
-      Colors.green.shade100),
-  Risk(
-      'Engagement With Management Plan',
-      'Blue',
-      'Some insight into eating problems. Motivated to tackle eating problems, ambivalence towards changes required to gain weight not apparent in behaviour',
-      '',
-      Colors.blue,
-      Colors.blue.shade100),
-  Risk('Engagement With Management Plan', 'White', 'Unscored', '0',
+  Risk('Temperature', 'White', ['Unscored'], ['Unscored'], [], [], [], [], '0',
       Colors.white, Colors.white),
+
+  // 'Muscular function: SUSS Test'
   Risk(
-      'Activity and Exercise',
+      'Muscular function: SUSS Test',
       'Red',
-      'High levels of uncontrolled exercise (2hrs per day)',
+      [
+        'Unable to sit up from lying flat, or to get up from squat at all or only by using upper limbs to help (Score 0 or 1)'
+      ],
+      [
+        'Unable to sit up from lying flat, or to get up from squat at all or only by using upper limbs to help (Score 0 or 1)'
+      ],
+      ['SUSS Test = Sit Up-Stand–Squat'],
+      ['SUSS Test = Sit Up-Stand–Squat'],
+      [],
+      [],
       '',
       Colors.red,
       Colors.red.shade100),
   Risk(
-      'Activity and Exercise',
+      'Muscular function: SUSS Test',
       'Amber',
-      'Moderate levels of uncontrolled exercise (>1 hr per day)',
+      [
+        'Unable to sit up or stand from squat without noticeable difficulty (Score 2)'
+      ],
+      [
+        'Unable to sit up or stand from squat without noticeable difficulty (Score 2)'
+      ],
+      ['No muscle function test has been researched in patients <18 years.'],
+      ['SUSS Test = Sit Up-Stand–Squat'],
+      ['SUSS Test = Sit Up-Stand–Squat'],
+      [],
       '',
       Colors.amber,
       Colors.amber.shade100),
   Risk(
-      'Activity and Exercise',
+      'Muscular function: SUSS Test',
       'Green',
-      'Mild levels of uncontrolled exercise (less than 1 hr per day).',
+      [
+        'Able to sit up from lying flat and stand from squat with no difficulty (Score 3)'
+      ],
+      [
+        'Able to sit up from lying flat and stand from squat with no difficulty (Score 3)'
+      ],
+      ['SUSS Test = Sit Up-Stand–Squat'],
+      ['SUSS Test = Sit Up-Stand–Squat'],
+      [],
+      [],
       '',
       Colors.green,
       Colors.green.shade100),
-  Risk('Activity and Exercise', 'Blue', 'No uncontrolled exercise', '',
-      Colors.blue, Colors.blue.shade100),
-  Risk('Activity and Exercise', 'White', 'Unscored', '0', Colors.white,
-      Colors.white),
+  Risk('Muscular function: SUSS Test', 'White', ['Unscored'], ['Unscored'], [],
+      [], [], [], '0', Colors.white, Colors.white),
+
+  // 'Muscular function: hand grip strength'
   Risk(
-      'Self Harm and Suicide',
+      'Muscular function: hand grip strength',
       'Red',
-      'Self poisoning. Suicidal ideas with moderate-high risk of completed suicide',
+      ['Male <30.5kg, Female <17.5kg (3rd percentile)'],
+      ['No muscle function test has been researched in patients <18 years.'],
+      [],
+      [],
+      ['https://pubmed.ncbi.nlm.nih.gov/19129352/'],
+      [],
       '',
       Colors.red,
       Colors.red.shade100),
   Risk(
-      'Self Harm and Suicide',
+      'Muscular function: hand grip strength',
       'Amber',
-      'Cutting or similar behaviours. Suicidal ideas with low risk of completed suicide',
+      ['Male <38kg, Female <23kg (5th percentile)'],
+      ['No muscle function test has been researched in patients <18 years.'],
+      [],
+      [],
+      ['https://pubmed.ncbi.nlm.nih.gov/19129352/'],
+      [],
       '',
       Colors.amber,
       Colors.amber.shade100),
-  Risk('Self Harm and Suicide', 'Green', 'No self harm/suicide.', '',
+  Risk(
+      'Muscular function: hand grip strength',
+      'Green',
+      ['Male >38kg, Female >23kg'],
+      ['No muscle function test has been researched in patients <18 years.'],
+      [],
+      [],
+      ['https://pubmed.ncbi.nlm.nih.gov/19129352/'],
+      [],
+      '',
+      Colors.green,
+      Colors.green.shade100),
+  Risk('Muscular function: hand grip strength', 'White', ['Unscored'],
+      ['Unscored'], [], [], [], [], '0', Colors.white, Colors.white),
+
+  // 'Muscular function: MUAC'
+  Risk(
+      'Muscular function: MUAC',
+      'Red',
+      ['<18cm (approx. BMI<13)'],
+      ['MUAC has not been evaluated in children and young people'],
+      [],
+      [],
+      ['https://pubmed.ncbi.nlm.nih.gov/12765671/'],
+      [],
+      '',
+      Colors.red,
+      Colors.red.shade100),
+  Risk(
+      'Muscular function: MUAC',
+      'Amber',
+      ['18–20cm (approx. BMI<15.5)'],
+      ['MUAC has not been evaluated in children and young people'],
+      [],
+      [],
+      ['https://pubmed.ncbi.nlm.nih.gov/12765671/'],
+      [],
+      '',
+      Colors.amber,
+      Colors.amber.shade100),
+  Risk(
+      'Muscular function: MUAC',
+      'Green',
+      ['>20cm (approx. BMI >15.5)'],
+      ['MUAC has not been evaluated in children and young people'],
+      [],
+      [],
+      ['https://pubmed.ncbi.nlm.nih.gov/12765671/'],
+      [],
+      '',
+      Colors.green,
+      Colors.green.shade100),
+  Risk('Muscular function: MUAC', 'White', ['Unscored'], ['Unscored'], [], [],
+      [], [], '0', Colors.white, Colors.white),
+
+  // 'Other clinical state'
+  Risk(
+      'Other clinical state',
+      'Red',
+      [
+        'Life-threatening medical condition, e.g. severe haematemesis, acute confusion, severe cognitive slowing, diabetic ketoacidosis, upper gastrointestinal perforation, significant alcohol consumption'
+      ],
+      [
+        'Life-threatening medical condition, e.g. severe haematemesis, acute confusion, severe cognitive slowing, diabetic ketoacidosis, upper gastrointestinal perforation, significant alcohol consumption'
+      ],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.red,
+      Colors.red.shade100),
+  Risk(
+      'Other clinical state',
+      'Amber',
+      [
+        'Non-life-threatening physical compromise, e.g. mild haematemesis, pressure sores'
+      ],
+      [
+        'Non-life-threatening physical compromise, e.g. mild haematemesis, pressure sores'
+      ],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.amber,
+      Colors.amber.shade100),
+  Risk(
+      'Other clinical state',
+      'Green',
+      [
+        'Evidence of physical compromise, e.g. poor cognitive flexibility, poor concentration'
+      ],
+      [
+        'Evidence of physical compromise, e.g. poor cognitive flexibility, poor concentration'
+      ],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.green,
+      Colors.green.shade100),
+  Risk('Other clinical state', 'White', ['Unscored'], ['Unscored'], [], [], [],
+      [], '0', Colors.white, Colors.white),
+
+  // 'ECG abnormalities'
+  Risk(
+      'ECG abnormalities',
+      'Red',
+      [
+        'QTc >450ms (females), 430ms (males)',
+        'And any other significant ECG abnormality'
+      ],
+      [
+        'QTc >460ms (female), 450ms (male)',
+        'And any other significant ECG abnormality'
+      ],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.red,
+      Colors.red.shade100),
+  Risk(
+      'ECG abnormalities',
+      'Amber',
+      [
+        'QTc >450ms (females), >430ms (males).',
+        'And no other ECG anomaly',
+        'Taking medication known to prolong QTc interval'
+      ],
+      [
+        'QTc >460ms (female), 450ms (male)',
+        'And no other ECG anomaly',
+        'Taking medication known to prolong QTc interval'
+      ],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.amber,
+      Colors.amber.shade100),
+  Risk(
+      'ECG abnormalities',
+      'Green',
+      ['QTc <450ms (females), <430ms (males)'],
+      ['QTc <460ms (female), 450ms (male)'],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.green,
+      Colors.green.shade100),
+  Risk('ECG abnormalities', 'White', ['Unscored'], ['Unscored'], [], [], [], [],
+      '0', Colors.white, Colors.white),
+
+  // 'Biochemical abnormalities'
+  Risk(
+      'Biochemical abnormalities',
+      'Red',
+      [
+        'Hypophosphataemia and falling phosphate',
+        'Hypokalaemia (<2.5mmol/L)',
+        'Hypoalbuminaemia  Hypoglycaemia',
+        '3mmol/L)',
+        'Hyponatraemia',
+        'Hypocalcaemia',
+        'Transaminases >3x normal range',
+        'Inpatients with diabetes mellitus: HbA1C >10% (86mmol/mol)'
+      ],
+      [
+        'Hypophosphataemia and falling phosphate',
+        'Hypokalaemia (<2.5mmol/L)',
+        'Hypoalbuminaemia  Hypoglycaemia',
+        '3mmol/L)',
+        'Hyponatraemia',
+        'Hypocalcaemia',
+        'Transaminases >3x normal range',
+        'Inpatients with diabetes mellitus: HbA1C >10% (86mmol/mol)'
+      ],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.red,
+      Colors.red.shade100),
+  Risk('Biochemical abnormalities', 'Amber', [], [], [], [], [], [], '',
+      Colors.amber, Colors.amber.shade100),
+  Risk('Biochemical abnormalities', 'Green', [], [], [], [], [], [], '',
       Colors.green, Colors.green.shade100),
-  Risk('Self Harm and Suicide', 'Blue', 'No self harm/suicide', '', Colors.blue,
-      Colors.blue.shade100),
-  Risk('Self Harm and Suicide', 'White', 'Unscored', '0', Colors.white,
-      Colors.white),
+  Risk('Biochemical abnormalities', 'White', ['Unscored'], ['Unscored'], [], [],
+      [], [], '0', Colors.white, Colors.white),
+
+  // 'Haematology'
+  Risk('Haematology', 'Red', ['Low white cell count', 'Haemoglobin <10g/L'], [],
+      [], [], [], [], '', Colors.red, Colors.red.shade100),
+  Risk('Haematology', 'Amber', [], [], [], [], [], [], '', Colors.amber,
+      Colors.amber.shade100),
+  Risk('Haematology', 'Green', [], [], [], [], [], [], '', Colors.green,
+      Colors.green.shade100),
+  Risk('Haematology', 'White', ['Unscored'], ['Unscored'], [], [], [], [], '0',
+      Colors.white, Colors.white),
+
+  // 'Disordered eating behaviours'
   Risk(
-      'Muscular Weakness',
+      'Disordered eating behaviours',
       'Red',
-      'Sit Up, Squat, Stand test: Unable to get up at all from squatting (score 0). Unable to sit up at all from lying flat (score 0)',
+      [
+        'Acute food refusal or estimated calorie intake <500kcal/day for 2+ days'
+      ],
+      [],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.red,
+      Colors.red.shade100),
+  Risk('Disordered eating behaviours', 'Amber', [], [], [], [], [], [], '',
+      Colors.amber, Colors.amber.shade100),
+  Risk('Disordered eating behaviours', 'Green', [], [], [], [], [], [], '',
+      Colors.green, Colors.green.shade100),
+  Risk('Disordered eating behaviours', 'White', ['Unscored'], ['Unscored'], [],
+      [], [], [], '0', Colors.white, Colors.white),
+
+  // 'Engagement with management plan'
+  Risk(
+      'Engagement with management plan',
+      'Red',
+      [
+        'Physical struggles with staff or parents/carers over nutrition or reduction of exercise',
+        'Harm to self',
+        'Poor insight or motivation',
+        'Fear leading to resistance to weight gain',
+        'Staff or parents/carers unable to implement meal plan prescribed'
+      ],
+      [
+        'Physical struggles with staff or parents/carers over nutrition or reduction of exercise',
+        'Harm to self',
+        'Poor insight or motivation',
+        'Fear leading to resistance to weight gain',
+        'Staff or parents/carers unable to implement meal plan prescribed'
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.red,
       Colors.red.shade100),
   Risk(
-      'Muscular Weakness',
+      'Engagement with management plan',
       'Amber',
-      'Sit Up, Squat, Stand test: Unable to get up from squatting without using upper limbs (score 1) OR Unable to sit up from lying flat without using upper limbs (score 1)',
+      [
+        'Poor insight or motivation',
+        'Resistance to weight gain',
+        'Staff or parents/carers unable to implement meal plan prescribed',
+        'Some insight and motivation to tackle eating problems',
+        'Fear leading to some ambivalence but not actively resisting'
+      ],
+      [
+        'Poor insight or motivation',
+        'Resistance to weight gain',
+        'Staff or parents/carers unable to implement meal plan prescribed',
+        'Some insight and motivation to tackle eating problems',
+        'Fear leading to some ambivalence but not actively resisting'
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.amber,
       Colors.amber.shade100),
   Risk(
-      'Muscular Weakness',
+      'Engagement with management plan',
       'Green',
-      'Sit Up, Squat, Stand test - Unable to get up without noticeable difficulty (score 2) OR Unable to sit up from lying flat without noticeable difficulty (score 2)',
+      [
+        'Some insight and motivation to tackle eating problems',
+        'May be ambivalent but not actively resisting'
+      ],
+      [
+        'Some insight and motivation to tackle eating problems',
+        'May be ambivalent but not actively resisting'
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.green,
       Colors.green.shade100),
+  Risk('Engagement with management plan', 'White', ['Unscored'], ['Unscored'],
+      [], [], [], [], '0', Colors.white, Colors.white),
+
+  // 'Activity and exercise'
   Risk(
-      'Muscular Weakness',
-      'Blue',
-      'Sit Up, Squat, Stand test. Stands up from squat without any difficulty (score 3) OR Sits up from lying flat without any difficulty (score 3)',
+      'Activity and exercise',
+      'Red',
+      [
+        'High levels of dysfunctional exercise in the context of malnutrition (>2h/day)'
+      ],
+      [
+        'High levels of dysfunctional exercise in the context of malnutrition (>2h/day)'
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
-      Colors.blue,
-      Colors.blue.shade100),
-  Risk('Muscular Weakness', 'White', 'Unscored', '0', Colors.white,
-      Colors.white),
-  Risk('Other Mental Health Diagnoses', 'Red', 'Confusion and delirium<', '',
-      Colors.red, Colors.red.shade100),
+      Colors.red,
+      Colors.red.shade100),
   Risk(
-      'Other Mental Health Diagnoses',
+      'Activity and exercise',
       'Amber',
-      'Other major psychiatric co-diagnosis eg OCD, psychosis, depression',
+      [
+        'Moderate levels of dysfunctional exercise in the context of malnutrition (>1h/day)'
+      ],
+      [
+        'Moderate levels of dysfunctional exercise in the context of malnutrition (>1h/day)'
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.amber,
       Colors.amber.shade100),
   Risk(
-      'Other Mental Health Diagnoses',
+      'Activity and exercise',
       'Green',
-      'Poor attention and concentration',
+      [
+        'Mild levels of or no dysfunctional exercise in the context of malnutrition (<1h/day)'
+      ],
+      [
+        'Mild levels of or no dysfunctional exercise in the context of malnutrition (<1h/day)'
+      ],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.green,
       Colors.green.shade100),
-  Risk('Other Mental Health Diagnoses', 'Blue', 'No other issues', '',
-      Colors.blue, Colors.blue.shade100),
-  Risk('Other Mental Health Diagnoses', 'White', 'Unscored', '0', Colors.white,
-      Colors.white),
-  Risk('Other', 'red', 'Acute Pancreatitis. Gastric or oesophageal rupture.',
-      '', Colors.red, Colors.red.shade100),
+  Risk('Activity and exercise', 'White', ['Unscored'], ['Unscored'], [], [], [],
+      [], '0', Colors.white, Colors.white),
+
+  // 'Purging behaviours'
   Risk(
-      'Other',
+      'Purging behaviours',
+      'Red',
+      ['Multiple daily episodes of vomiting and/or laxative abuse'],
+      ['Multiple daily episodes of vomiting and/or laxative abuse'],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.red,
+      Colors.red.shade100),
+  Risk(
+      'Purging behaviours',
       'Amber',
-      'Mallory Weiss Tear. Gastro-oesophageal reflux. Gastritis. Pressure sores',
+      ['Regular (=>3x per week) vomiting and/or laxative abuse'],
+      ['Regular (=>3x per week) vomiting and/or laxative abuse'],
+      [],
+      [],
+      [],
+      [],
       '',
       Colors.amber,
       Colors.amber.shade100),
-  Risk('Other', 'Green', 'No other issues', '', Colors.green,
+  Risk('Purging behaviours', 'Green', [], [], [], [], [], [], '', Colors.green,
       Colors.green.shade100),
-  Risk('Other', 'Blue', 'No other issues', '', Colors.blue,
-      Colors.blue.shade100),
-  Risk('Other', 'White', 'Unscored', '0', Colors.white, Colors.white)
+  Risk('Purging behaviours', 'White', ['Unscored'], ['Unscored'], [], [], [],
+      [], '0', Colors.white, Colors.white),
+
+  // 'Self harm and suicide'
+  Risk(
+      'Self harm and suicide',
+      'Red',
+      [
+        'Self-poisoning, suicidal ideas with moderate to high risk of completed suicide'
+      ],
+      [
+        'Self-poisoning, suicidal ideas with moderate to high risk of completed suicide'
+      ],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.red,
+      Colors.red.shade100),
+  Risk(
+      'Self harm and suicide',
+      'Amber',
+      [
+        'Cutting or similar behaviours, suicidal ideas with low risk of completed suicide'
+      ],
+      [
+        'Cutting or similar behaviours, suicidal ideas with low risk of completed suicide'
+      ],
+      [],
+      [],
+      [],
+      [],
+      '',
+      Colors.amber,
+      Colors.amber.shade100),
+  Risk('Self harm and suicide', 'Green', [], [], [], [], [], [], '',
+      Colors.green, Colors.green.shade100),
+  Risk('Self harm and suicide', 'White', ['Unscored'], ['Unscored'], [], [], [],
+      [], '0', Colors.white, Colors.white),
 ];

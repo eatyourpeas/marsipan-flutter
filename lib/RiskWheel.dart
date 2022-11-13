@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:marsipan/colours.dart';
 import 'package:marsipan/riskdetail.dart';
 import 'package:marsipan/risks.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,14 @@ class RiskWheel extends StatefulWidget {
   final int marsipanCategoryIndex;
   final RiskCategory riskCategory;
   final IntCallback onUpdateRiskDetail;
+  final bool isOver18y;
+
   RiskWheel(
-      {this.riskCategory, this.marsipanCategoryIndex, this.onUpdateRiskDetail});
+      {required this.riskCategory,
+      required this.marsipanCategoryIndex,
+      required this.onUpdateRiskDetail,
+      required this.isOver18y});
+
   @override
   State<StatefulWidget> createState() {
     return _RiskWheelState();
@@ -28,18 +35,16 @@ class _RiskWheelState extends State<RiskWheel>
   double _current = 0;
   String riskValue = '';
   double red = 0;
-  double amber = 0.125;
-  double green = 0.25;
-  double blue = 0.375;
+  double amber = 0.33;
+  double green = 0.67;
 
-  Risk risk;
+  late Risk risk;
   bool pressedSelect = false;
 
   List<RiskColour> _items = [
     RiskColour(Colors.red, 'Red'),
     RiskColour(Colors.amber, 'Amber'),
     RiskColour(Colors.green, 'Green'),
-    RiskColour(Colors.blue, 'Blue'),
   ];
 
   @override
@@ -59,11 +64,6 @@ class _RiskWheelState extends State<RiskWheel>
     if (scoredCategories[widget.marsipanCategoryIndex].colour == "Green") {
       risk = widget.riskCategory.green;
       _angle = green;
-      pressedSelect = true;
-    }
-    if (scoredCategories[widget.marsipanCategoryIndex].colour == "Blue") {
-      risk = widget.riskCategory.blue;
-      _angle = blue;
       pressedSelect = true;
     }
   }
@@ -157,10 +157,6 @@ class _RiskWheelState extends State<RiskWheel>
                       {
                         risk = widget.riskCategory.green,
                       },
-                    if (riskValue == 'Blue')
-                      {
-                        risk = widget.riskCategory.blue,
-                      },
                     scoredCategories[widget.marsipanCategoryIndex] = risk,
                   }
                 else
@@ -179,60 +175,160 @@ class _RiskWheelState extends State<RiskWheel>
       _angle = 0.0;
     }
     riskValue = 'Red';
-    if ((_angle > 0.0625 && _angle < 0.1875) ||
-        (_angle < -0.3125 && _angle >= -0.4375)) {
-      riskValue = 'Amber';
-    }
-    if ((_angle >= 0.1875 && _angle <= 0.3125) ||
-        (_angle <= -0.1875 && _angle >= -0.3125)) {
+    if ((_angle > 0.33) || (_angle < -0.11 && _angle > -0.33)) {
       riskValue = 'Green';
     }
-    if ((_angle > 0.3125 && _angle <= 0.4375) ||
-        (_angle < -0.0625 && _angle > -0.1875)) {
-      riskValue = 'Blue';
+    if ((_angle <= 0.33 && _angle >= 0.11) || _angle <= -0.33) {
+      riskValue = 'Amber';
     }
 
     RiskCategory category = marsipanCategories[widget.marsipanCategoryIndex];
-    var _riskText = '';
+    var descriptions = [];
+    var guidance = [];
+    var references = [];
+
     if (riskValue == 'Red') {
-      _riskText = category.red.description;
+      if (widget.isOver18y) {
+        descriptions = category.red.over18descriptions;
+        references = category.red.over18references;
+        guidance = category.red.over18guidance;
+      } else {
+        descriptions = category.red.under18descriptions;
+        references = category.red.under18guidance;
+        guidance = category.red.under18references;
+      }
     }
     if (riskValue == 'Amber') {
-      _riskText = category.amber.description;
+      if (widget.isOver18y) {
+        descriptions = category.amber.over18descriptions;
+        references = category.amber.over18guidance;
+        guidance = category.amber.over18references;
+      } else {
+        descriptions = category.amber.under18descriptions;
+        references = category.amber.under18guidance;
+        guidance = category.amber.under18references;
+      }
     }
+
     if (riskValue == 'Green') {
-      _riskText = category.green.description;
+      if (widget.isOver18y) {
+        descriptions = category.green.over18descriptions;
+        references = category.green.over18guidance;
+        guidance = category.green.over18references;
+      } else {
+        descriptions = category.green.under18descriptions;
+        references = category.green.under18guidance;
+        guidance = category.green.under18references;
+      }
     }
-    if (riskValue == 'Blue') {
-      _riskText = category.blue.description;
+
+    List<Widget> descriptionTexts() {
+      List<Widget> list = [];
+      list.add(Padding(
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+        child: Text(
+          'Criteria',
+          style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+        ),
+      ));
+      for (int i = 0; i < descriptions.length; i++) {
+        list.add(Text(descriptions[i], style: TextStyle(fontSize: 18)));
+      }
+      return list;
     }
+
+    List<Widget> guidanceTexts() {
+      List<Widget> list = [];
+      list.add(Padding(
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+        child: Text(
+          'Guidance',
+          style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+        ),
+      ));
+      for (int i = 0; i < guidance.length; i++) {
+        list.add(Text(guidance[i],
+            style: TextStyle(
+              fontSize: 18,
+            )));
+      }
+      return list;
+    }
+
+    List<Widget> referenceTexts() {
+      List<Widget> list = [];
+      list.add(Padding(
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+        child: Text(
+          'References',
+          style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+        ),
+      ));
+      for (int i = 0; i < references.length; i++) {
+        list.add(Text(references[i], style: TextStyle(fontSize: 18)));
+      }
+      return list;
+    }
+
     return Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Align(
-          alignment: Alignment.topCenter,
-          child: Text(
-            _riskText,
-            style: TextStyle(fontSize: 18),
-          )),
-    );
+        padding: EdgeInsets.all(20.0),
+        child: Align(
+            alignment: Alignment.topCenter,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 8),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom:
+                              BorderSide(width: 1.0, color: rcpchDarkBlue))),
+                  child: widget.isOver18y
+                      ? Text(
+                          'Guidance for Over 18y',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 18,
+                              color: rcpchDarkBlue),
+                        )
+                      : Text(
+                          'Guidance for Under 18y',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 18,
+                              color: rcpchDarkBlue),
+                        ),
+                ),
+                if (descriptions.length > 0) ...[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: descriptionTexts(),
+                  )
+                ],
+                if (guidance.length > 0) ...[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: guidanceTexts(),
+                  )
+                ],
+                if (references.length > 0) ...[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: referenceTexts(),
+                  )
+                ],
+              ],
+            )));
   }
 
   getColorText(double value) {
     var _base = (2 * pi / _items.length / 2) / (2 * pi);
     return (((_base + value) % 1) * _items.length).floor();
   }
-
-//  _buildResult(angle) {
-//
-//    //var current = getColorText(angle);
-//    return Padding(
-//      padding: EdgeInsets.symmetric(vertical: 16.0),
-//      child: Align(
-//        alignment: Alignment.topCenter,
-//        child: Text('$riskValue')
-//      ),
-//    );
-//  }
 
   void _panHandler(DragUpdateDetails d) {
     /// Pan location on the wheel
