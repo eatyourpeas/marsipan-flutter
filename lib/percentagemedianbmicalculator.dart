@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:meed/colours.dart';
 import 'calculatorresults.dart';
 import 'growthmethods.dart';
 import 'data.dart';
@@ -21,7 +21,14 @@ class PercentageMedianBMICalculatorRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('%mBMI Calculator')), body: body(context));
+        appBar: AppBar(
+          title: Text(
+            '%mBMI Calculator',
+            style: TextStyle(color: Colors.white),
+          ),
+          leading: BackButton(color: Colors.white),
+        ),
+        body: body(context));
   }
 
   @override
@@ -112,7 +119,7 @@ class _HeightWidgetState extends State<HeightWidget> {
           children: <Widget>[
             Container(
               child: Container(
-                child: new Icon(Icons.show_chart),
+                child: new Icon(Icons.show_chart_outlined),
               ),
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 10.0, 0.0),
             )
@@ -181,7 +188,7 @@ class _WeightWidgetState extends State<WeightWidget> {
             Container(
               child: Container(
                 child: new Icon(
-                  FontAwesomeIcons.scaleBalanced,
+                  Icons.monitor_weight_outlined,
                 ),
               ),
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 10.0, 0.0),
@@ -244,7 +251,7 @@ class _BirthdayWidgetState extends State<BirthdayWidget> {
             Container(
               child: Container(
                 child: new Icon(
-                  Icons.cake,
+                  Icons.cake_outlined,
                 ),
               ),
               padding: EdgeInsets.fromLTRB(30.0, 10.0, 10.0, 0.0),
@@ -265,9 +272,9 @@ class _BirthdayWidgetState extends State<BirthdayWidget> {
           children: <Widget>[
             Container(
               child: IconButton(
-                color: Colors.green,
+                color: rcpchLightBlue,
                 onPressed: () => showPicker(context),
-                icon: Icon(Icons.calendar_today),
+                icon: Icon(Icons.calendar_today_outlined),
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
               ),
               padding: EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 0.0),
@@ -313,7 +320,7 @@ class _ClinicWidgetState extends State<ClinicWidget> {
             Container(
               child: Container(
                 child: new Icon(
-                  Icons.today,
+                  Icons.today_outlined,
                 ),
               ),
               padding: EdgeInsets.fromLTRB(30.0, 10.0, 10.0, 0.0),
@@ -334,9 +341,9 @@ class _ClinicWidgetState extends State<ClinicWidget> {
           children: <Widget>[
             Container(
               child: IconButton(
-                color: Colors.green,
+                color: rcpchLightBlue,
                 onPressed: () => showPicker(context),
-                icon: Icon(Icons.calendar_today),
+                icon: Icon(Icons.calendar_today_outlined),
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
               ),
               padding: EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 0.0),
@@ -371,7 +378,7 @@ class _SexChoiceWidgetState extends State<SexChoiceWidget> {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.fromLTRB(30.0, 10.0, 10.0, 0.0),
-                  child: Icon(FontAwesomeIcons.mars),
+                  child: Icon(Icons.male_outlined),
                 )
               ],
             ),
@@ -389,7 +396,7 @@ class _SexChoiceWidgetState extends State<SexChoiceWidget> {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.fromLTRB(10.0, 10.0, 30.0, 0.0),
-                  child: Icon(FontAwesomeIcons.venus),
+                  child: Icon(Icons.female_outlined),
                 )
               ],
             ),
@@ -419,7 +426,7 @@ class _CalculateWidgetState extends State<CalculateWidget> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         ElevatedButton(
-          style: ElevatedButton.styleFrom(primary: Colors.green),
+          style: ElevatedButton.styleFrom(backgroundColor: rcpchLightBlue),
           onPressed: () => {
             setState(() => {
                   _didPressCalculateButton(widget.data),

@@ -6296,7 +6296,8 @@ class GrowthMethods {
 
   double weightForBMI(double height, double bMI) {
     double returnWeight = 0.0;
-    returnWeight = bMI * sqrt(height / 100);
+    double squaredHeight = pow(height / 100, 2).toDouble();
+    returnWeight = bMI * squaredHeight;
     return returnWeight;
   }
 

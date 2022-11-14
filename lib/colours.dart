@@ -97,6 +97,30 @@ const MaterialColor rcpchLightBlueAccent =
 });
 const int _rcpchLightBlueAccentValue = 0xFFDDEDFF;
 
+const MaterialColor rcpchStrongBlue =
+    MaterialColor(_rcpchStrongBluePrimaryValue, <int, Color>{
+  50: Color(0xFFE7EDF9),
+  100: Color(0xFFC2D1F0),
+  200: Color(0xFF99B3E6),
+  300: Color(0xFF7094DB),
+  400: Color(0xFF527DD4),
+  500: Color(_rcpchStrongBluePrimaryValue),
+  600: Color(0xFF2E5EC7),
+  700: Color(0xFF2753C0),
+  800: Color(0xFF2049B9),
+  900: Color(0xFF1438AD),
+});
+const int _rcpchStrongBluePrimaryValue = 0xFF3366CC;
+
+const MaterialColor rcpchStrongBlueAccent =
+    MaterialColor(_rcpchStrongBlueAccentValue, <int, Color>{
+  100: Color(0xFFE0E6FF),
+  200: Color(_rcpchStrongBlueAccentValue),
+  400: Color(0xFF7A94FF),
+  700: Color(0xFF607FFF),
+});
+const int _rcpchStrongBlueAccentValue = 0xFFADBDFF;
+
 const MaterialColor rcpchDarkBlue =
     MaterialColor(_rcpchDarkBluePrimaryValue, <int, Color>{
   50: Color(0xFFE2E2EB),

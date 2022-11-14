@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'data.dart';
 
 class CalculatorResultsRoute extends StatefulWidget {
@@ -16,7 +14,11 @@ class CalculatorResultsRouteState extends State<CalculatorResultsRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Results'),
+          title: Text(
+            'Results',
+            style: TextStyle(color: Colors.white),
+          ),
+          leading: BackButton(color: Colors.white),
         ),
         body: Stack(
           alignment: AlignmentDirectional.bottomCenter,

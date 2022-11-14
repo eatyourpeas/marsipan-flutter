@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'MEED',
+        title: ('MEED'),
+        color: Colors.white,
         theme: ThemeData(
             primarySwatch: rcpchLightBlue,
             splashColor: rcpchDarkBlue,
@@ -77,6 +78,30 @@ class MyHomePage extends StatelessWidget {
             ),
             ElevatedButton(
               child: Text(
+                'BMI Calculator for over 18ys',
+                style: TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
+              ),
+              style: ElevatedButton.styleFrom(backgroundColor: rcpchStrongBlue),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AdultBMICalculatorRoute()));
+              },
+            ),
+            ElevatedButton(
+              child: Text(
+                'Risk Tool for over 18ys',
+                style: TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
+              ),
+              style: ElevatedButton.styleFrom(backgroundColor: rcpchStrongBlue),
+              onPressed: () {
+                Navigator.pushNamed(context, RiskAssessmentRoute.routeName,
+                    arguments: RiskAssessmentToolArguments(true));
+              },
+            ),
+            ElevatedButton(
+              child: Text(
                 'Percentage Median BMI Calculator',
                 style: TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
               ),
@@ -91,30 +116,6 @@ class MyHomePage extends StatelessWidget {
             ),
             ElevatedButton(
               child: Text(
-                'BMI Calculator for over 18ys',
-                style: TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
-              ),
-              style: ElevatedButton.styleFrom(backgroundColor: rcpchLightBlue),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AdultBMICalculatorRoute()));
-              },
-            ),
-            ElevatedButton(
-              child: Text(
-                'Risk Tool for over 18ys',
-                style: TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
-              ),
-              style: ElevatedButton.styleFrom(backgroundColor: rcpchLightBlue),
-              onPressed: () {
-                Navigator.pushNamed(context, RiskAssessmentRoute.routeName,
-                    arguments: RiskAssessmentToolArguments(true));
-              },
-            ),
-            ElevatedButton(
-              child: Text(
                 'Risk Assessment Tool for under 18ys',
                 style: TextStyle(color: Colors.white, fontFamily: 'Montserrat'),
               ),
@@ -124,13 +125,23 @@ class MyHomePage extends StatelessWidget {
                     arguments: RiskAssessmentToolArguments(false));
               },
             ),
-            Image.asset(
-              'assets/images/rcpsych-logo-homepage-2022.jpg',
-              scale: 4.0,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/rcpsych-logo-homepage-2022.jpg',
+                  scale: 4.0,
+                ),
+                Image.asset(
+                  'assets/images/nhs-england-logo.jpg',
+                  scale: 6.0,
+                ),
+              ],
             ),
             Expanded(
               child: Align(
-                alignment: FractionalOffset.bottomCenter,
+                alignment: FractionalOffset.center,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,

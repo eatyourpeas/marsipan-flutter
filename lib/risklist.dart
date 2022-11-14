@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meed/RiskWheel.dart';
+import 'package:meed/colours.dart';
 import 'package:meed/risks.dart';
 
 class RiskAssessmentToolArguments {
@@ -38,7 +38,10 @@ class _RiskAssessmentRoute extends State<RiskAssessmentRoute> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Risk Assessment Tool $suffix'),
+          title: Text('Risk Assessment Tool $suffix',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: args.isOver18y ? rcpchStrongBlue : rcpchLightBlue,
+          leading: BackButton(color: Colors.white),
         ),
         body: RiskList(
             isOver18: args.isOver18y,
@@ -47,7 +50,11 @@ class _RiskAssessmentRoute extends State<RiskAssessmentRoute> {
               _updateRiskCallback(riskIndex);
             }),
         floatingActionButton: FloatingActionButton(
-            child: Icon(FontAwesomeIcons.arrowsRotate),
+            child: Icon(
+              Icons.replay_sharp,
+              color: Colors.white,
+            ),
+            backgroundColor: args.isOver18y ? rcpchStrongBlue : rcpchLightBlue,
             onPressed: (() => setState(() {
                   // reset all the risks to unscored
                   for (var i = 0; i < scoredCategories.length; i++) {
@@ -78,7 +85,7 @@ class RiskList extends StatelessWidget {
         itemBuilder: (context, index) {
           return ListTile(
             tileColor: scoredCategories[index].selectedColour,
-            leading: FaIcon(marsipanCategories[index].icon,
+            leading: Icon(marsipanCategories[index].icon,
                 color: scoredCategories[index].selectedColour == Colors.white
                     ? Colors.black
                     : Colors.white),

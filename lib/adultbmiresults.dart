@@ -15,7 +15,11 @@ class AdultBMICalculatorResultsRouteState
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Results'),
+          title: Text(
+            'Results',
+            style: TextStyle(color: Colors.white),
+          ),
+          leading: BackButton(color: Colors.white),
         ),
         body: Stack(
           alignment: AlignmentDirectional.bottomCenter,
@@ -65,11 +69,11 @@ class ResultsWidget extends StatelessWidget {
             Padding(
                 padding: EdgeInsets.fromLTRB(0, 14, 0, 14),
                 child: Text(
-                  '${resultData.bmi.toStringAsFixed(1)} %',
+                  '${resultData.bmi.toStringAsFixed(1)} kg/m\u00B2',
                   style: TextStyle(
-                      color: resultData.bmi > 18.5
+                      color: resultData.bmi > 115
                           ? Colors.green
-                          : (resultData.bmi < 11 ? Colors.red : Colors.amber),
+                          : (resultData.bmi < 13 ? Colors.red : Colors.amber),
                       fontSize: 48.0),
                 )),
           ],
@@ -91,7 +95,7 @@ class ResultsWidget extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
                   child: Text(
-                    '${resultData.height.toStringAsFixed(1)} cm',
+                    '${resultData.height.toStringAsFixed(2)} m',
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -182,7 +186,7 @@ class TargetsWidget extends StatelessWidget {
                         flex: 5,
                         child: Container(
                           padding: EdgeInsets.fromLTRB(50, 20, 0, 10),
-                          child: Text('85%'),
+                          child: Text('18.5 kg/m\u00B2'),
                         )),
                     Expanded(
                       flex: 5,

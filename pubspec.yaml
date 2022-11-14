@@ -19,7 +19,6 @@ environment:
 dependencies:
   intl: ^0.17.0
   timeago: ^2.0.24
-  font_awesome_flutter: ^10.2.1
   flutter:
     sdk: flutter
 
@@ -47,64 +46,6 @@ flutter:
           style: normal
         - asset: assets/fonts/Montserrat/static/Montserrat-Italic.ttf
           style: italic
-        
-    - family: OpenSans
-      fonts:
-        - asset: assets/fonts/Open_Sans/OpenSans-Bold.ttf
-          weight: 700
-          style: italic
-        - asset: assets/fonts/Open_Sans/OpenSans-BoldItalic.ttf
-          weight: 700
-        - asset: assets/fonts/Open_Sans/OpenSans-ExtraBold.ttf
-          weight: 800
-        - asset: assets/fonts/Open_Sans/OpenSans-ExtraBoldItalic.ttf
-          weight: 800
-          style: italic
-        - asset: assets/fonts/Open_Sans/OpenSans-Italic.ttf
-          style: italic
-        - asset: assets/fonts/Open_Sans/OpenSans-Light.ttf
-          weight: 300
-        - asset: assets/fonts/Open_Sans/OpenSans-LightItalic.ttf
-          weight: 300
-          style: italic
-        - asset: assets/fonts/Open_Sans/OpenSans-Regular.ttf
-        - asset: assets/fonts/Open_Sans/OpenSans-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Open_Sans/OpenSans-SemiBoldItalic.ttf
-          weight: 600
-          style: italic
-    - family: Raleway
-      fonts:
-        - asset: assets/fonts/Raleway/Raleway-Black.ttf
-          weight: 900
-        - asset: assets/fonts/Raleway/Raleway-BlackItalic.ttf
-          weight: 900
-          style: italic
-        - asset: assets/fonts/Raleway/Raleway-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Raleway/Raleway-BoldItalic.ttf
-          weight: 900
-          style: italic
-        - asset: assets/fonts/Raleway/Raleway-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Raleway/Raleway-MediumItalic.ttf
-          weight: 500
-          style: italic
-        - asset: assets/fonts/Raleway/Raleway-Regular.ttf
-        - asset: assets/fonts/Raleway/Raleway-Italic.ttf
-          style: italic
-        - asset: assets/fonts/Raleway/Raleway-Black.ttf
-          weight: 900
-        - asset: assets/fonts/Raleway/Raleway-Light.ttf
-          weight: 300
-        - asset: assets/fonts/Raleway/Raleway-LightItalic.ttf
-          weight: 300
-          style: italic
-        - asset: assets/fonts/Raleway/Raleway-Thin.ttf
-          weight: 100
-        - asset: assets/fonts/Raleway/Raleway-ThinItalic.ttf
-          weight: 100
-          style: italic
 
 
   # The following line ensures that the Material Icons font is
@@ -114,6 +55,7 @@ flutter:
   assets:
     - assets/images/rcpch-logo.jpg
     - assets/images/rcpsych-logo-homepage-2022.jpg
+    - assets/images/nhs-england-logo.jpg
     - assets/fonts/
   # To add assets to your application, add an assets section, like this:
   # assets:

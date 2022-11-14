@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meed/colours.dart';
 import 'package:meed/riskdetail.dart';
 import 'adultbmiresults.dart';
 import 'growthmethods.dart';
@@ -31,7 +31,14 @@ class _AdultBMICalculatorRouteState extends State<AdultBMICalculatorRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Adult BMI Calculator')),
+        appBar: AppBar(
+          title: Text(
+            'Adult BMI Calculator',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: rcpchStrongBlue,
+          leading: BackButton(color: Colors.white),
+        ),
         body: body(context));
   }
 
@@ -240,7 +247,7 @@ class _WeightWidgetState extends State<WeightWidget> {
             Container(
               child: Container(
                 child: new Icon(
-                  FontAwesomeIcons.scaleBalanced,
+                  Icons.monitor_weight_outlined,
                 ),
               ),
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 10.0, 0.0),
@@ -321,7 +328,7 @@ class _ImperialDecimalWidgetState extends State<ImperialDecimalWidget> {
                 Container(
                   padding: EdgeInsets.fromLTRB(30.0, 18.0, 10.0, 0.0),
                   child: Text(
-                    "lb",
+                    "kg",
                     style: TextStyle(fontSize: 10),
                     textAlign: TextAlign.center,
                   ),
@@ -331,9 +338,10 @@ class _ImperialDecimalWidgetState extends State<ImperialDecimalWidget> {
             Expanded(
               child: Container(
                   child: Switch(
-                inactiveThumbColor: Colors.blue,
-                inactiveTrackColor: Colors.amber,
-                activeColor: Colors.red,
+                inactiveThumbColor: rcpchStrongBlue,
+                inactiveTrackColor: rcpchLightBlue,
+                activeColor: rcpchStrongBlue,
+                activeTrackColor: rcpchLightBlue,
                 onChanged: (val) => setState(() => {
                       widget.data.isImperial = val,
                       val ? widget.changeImperial(1) : widget.changeImperial(0)
@@ -346,7 +354,7 @@ class _ImperialDecimalWidgetState extends State<ImperialDecimalWidget> {
                 Container(
                   padding: EdgeInsets.fromLTRB(10.0, 18.0, 30.0, 0.0),
                   child: Text(
-                    "kg",
+                    "lb",
                     style: TextStyle(fontSize: 10),
                     textAlign: TextAlign.center,
                   ),
@@ -378,7 +386,7 @@ class _CalculateWidgetState extends State<CalculateWidget> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         ElevatedButton(
-          style: ElevatedButton.styleFrom(primary: Colors.green),
+          style: ElevatedButton.styleFrom(backgroundColor: rcpchStrongBlue),
           onPressed: () => {
             setState(() => {
                   _didPressCalculateButton(widget.data),
@@ -405,5 +413,7 @@ class _CalculateWidgetState extends State<CalculateWidget> {
     var growthMethods = new GrowthMethods();
     widget.data.bmi =
         growthMethods.bmiFromHeightandWeight(height * 100, weight);
+    widget.data.eighteenPointFive =
+        growthMethods.weightForBMI(height * 100, 18.5);
   }
 }

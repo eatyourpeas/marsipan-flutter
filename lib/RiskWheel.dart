@@ -74,14 +74,15 @@ class _RiskWheelState extends State<RiskWheel>
         backgroundColor: pressedSelect ? risk.selectedPaleColour : Colors.white,
         appBar: AppBar(
           centerTitle: true,
-          title: Container(
-            child: Text(
-              widget.riskCategory.category,
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
+          backgroundColor: widget.isOver18y ? rcpchStrongBlue : rcpchLightBlue,
+          title: Text(
+            widget.riskCategory.category,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
             ),
           ),
+          leading: BackButton(color: Colors.white),
         ),
         body: Center(
             child: Column(children: <Widget>[

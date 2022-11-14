@@ -9,12 +9,14 @@ class RiskDetail extends StatefulWidget {
   bool selected = false;
   final int marsipanCategoryIndex;
   final RiskCategory riskCategory;
-  RiskDetail(
-      {Key? key,
-      required this.riskCategory,
-      required this.marsipanCategoryIndex,
-      required this.selected,
-      required this.onRiskDetailUpdate});
+
+  RiskDetail({
+    Key? key,
+    required this.riskCategory,
+    required this.marsipanCategoryIndex,
+    required this.selected,
+    required this.onRiskDetailUpdate,
+  });
   @override
   _RiskDetailWidgetState createState() => _RiskDetailWidgetState();
 }
@@ -36,14 +38,11 @@ class _RiskDetailWidgetState extends State<RiskDetail> {
       key: _scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
-        title: Container(
-          child: Text(
-            widget.riskCategory.category,
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
+        title: Text(
+          widget.riskCategory.category,
+          style: TextStyle(fontSize: 20.0, color: Colors.white),
         ),
+        leading: BackButton(color: Colors.white),
       ),
 
       ///A Page View with 3 children
